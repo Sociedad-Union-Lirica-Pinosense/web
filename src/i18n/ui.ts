@@ -80,6 +80,14 @@ export const ui = {
     '404.text': 'La página que buscas no existe o ha sido movida.',
     '404.home': 'Volver al inicio',
 
+    // Instagram
+    'instagram.title': 'Última publicación',
+    'instagram.text': 'Para ver nuestra última publicación, necesitamos cargar contenido de Instagram que puede usar cookies.',
+    'instagram.accept': 'Aceptar y ver publicación',
+    'instagram.viewProfile': 'Ver perfil en Instagram',
+    'band.social.title': 'Síguenos',
+    'band.instagram.title': 'Última Publicación de Instagram',
+
     // Privacidad
     'privacy.title': 'Política de Privacidad',
   },
@@ -154,6 +162,13 @@ export const ui = {
     '404.text': 'La pàgina que busques no existeix o ha sigut moguda.',
     '404.home': 'Tornar a l\'inici',
 
+    'instagram.title': 'Última publicació',
+    'instagram.text': 'Per a veure la nostra última publicació, necessitem carregar contingut d\'Instagram que pot usar cookies.',
+    'instagram.accept': 'Acceptar i veure publicació',
+    'instagram.viewProfile': 'Veure perfil en Instagram',
+    'band.social.title': 'Segueix-nos',
+    'band.instagram.title': 'Última Publicació d\'Instagram',
+
     'privacy.title': 'Política de Privacitat',
   },
 
@@ -226,6 +241,13 @@ export const ui = {
     '404.title': 'Page Not Found',
     '404.text': 'The page you are looking for does not exist or has been moved.',
     '404.home': 'Go to homepage',
+
+    'instagram.title': 'Latest Post',
+    'instagram.text': 'To see our latest post, we need to load Instagram content which may use cookies.',
+    'instagram.accept': 'Accept and view post',
+    'instagram.viewProfile': 'View profile on Instagram',
+    'band.social.title': 'Follow Us',
+    'band.instagram.title': 'Latest Instagram Post',
 
     'privacy.title': 'Privacy Policy',
   },
