@@ -1,24 +1,43 @@
 ---
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../config/site';
+
 interface Props {
   title: string;
   description: string;
   level?: string;
   ageRange?: string;
   icon?: string;
+  href?: string;
+  lang?: Locale;
 }
 
-const { title, description, level, ageRange, icon } = Astro.props;
+const { title, description, level, ageRange, icon, href, lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<div class="course-card">
-  {icon && <span class="course-icon" aria-hidden="true">{icon}</span>}
-  <h3 class="course-title">{title}</h3>
-  <p class="course-desc">{description}</p>
-  <div class="course-meta">
-    {level && <span class="course-badge">{level}</span>}
-    {ageRange && <span class="course-age">{ageRange}</span>}
+{href ? (
+  <a href={href} class="course-card course-card--link">
+    {icon && <span class="course-icon" aria-hidden="true">{icon}</span>}
+    <h3 class="course-title">{title}</h3>
+    <p class="course-desc">{description}</p>
+    <div class="course-meta">
+      {level && <span class="course-badge">{level}</span>}
+      {ageRange && <span class="course-age">{ageRange}</span>}
+    </div>
+    <span class="course-more">{t('school.courses.moreInfo')} &rarr;</span>
+  </a>
+) : (
+  <div class="course-card">
+    {icon && <span class="course-icon" aria-hidden="true">{icon}</span>}
+    <h3 class="course-title">{title}</h3>
+    <p class="course-desc">{description}</p>
+    <div class="course-meta">
+      {level && <span class="course-badge">{level}</span>}
+      {ageRange && <span class="course-age">{ageRange}</span>}
+    </div>
   </div>
-</div>
+)}
 
 <style>
   .course-card {
@@ -29,9 +48,22 @@ const { title, description, level, ageRange, icon } = Astro.props;
     text-align: center;
     transition: box-shadow var(--transition-fast), transform var(--transition-fast);
   }
-  .course-card:hover {
+  .course-card--link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .course-card--link:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
+    border-color: var(--color-primary-light);
+  }
+  .course-card--link:hover .course-title {
+    color: var(--color-primary);
+  }
+  .course-card--link:hover .course-more {
+    color: var(--color-primary);
   }
   .course-icon {
     font-size: var(--text-3xl);
@@ -41,6 +73,7 @@ const { title, description, level, ageRange, icon } = Astro.props;
   .course-title {
     font-size: var(--text-lg);
     margin-block-end: var(--space-3);
+    transition: color var(--transition-fast);
   }
   .course-desc {
     font-size: var(--text-xs);
@@ -65,5 +98,13 @@ const { title, description, level, ageRange, icon } = Astro.props;
     color: var(--color-text-secondary);
     font-size: 0.75rem;
     padding: var(--space-1) var(--space-3);
+  }
+  .course-more {
+    display: block;
+    margin-block-start: var(--space-4);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-primary-dark);
+    transition: color var(--transition-fast);
   }
 </style>

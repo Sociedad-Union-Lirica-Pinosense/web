@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import CourseDetailLayout from '../../../../layouts/CourseDetailLayout.astro';
+
+export async function getStaticPaths() {
+  const courses = await getCollection('courses', ({ data }) => data.lang === 'va');
+  return courses.map((course) => ({
+    params: { slug: course.id.replace('va/', '').replace(/\.md$/, '') },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+const { Content } = await course.render();
+---
+
+<CourseDetailLayout
+  title={course.data.title}
+  description={course.data.description}
+  level={course.data.level}
+  ageRange={course.data.ageRange}
+  icon={course.data.icon}
+  lang="va"
+>
+  <Content />
+</CourseDetailLayout>
