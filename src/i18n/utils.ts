@@ -46,6 +46,9 @@ export function getLocalizedPath(currentPath: string, targetLang: Locale): strin
     'privacidad': { es: 'privacidad', va: 'privacitat', en: 'privacy' },
     'privacitat': { es: 'privacidad', va: 'privacitat', en: 'privacy' },
     'privacy': { es: 'privacidad', va: 'privacitat', en: 'privacy' },
+    'hazte-socio': { es: 'hazte-socio', va: 'fes-te-soci', en: 'join-us' },
+    'fes-te-soci': { es: 'hazte-socio', va: 'fes-te-soci', en: 'join-us' },
+    'join-us': { es: 'hazte-socio', va: 'fes-te-soci', en: 'join-us' },
   };
 
   // Traducir primer segmento si existe en el mapa
