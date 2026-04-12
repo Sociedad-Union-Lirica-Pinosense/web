@@ -47,15 +47,20 @@ const normativas = [
 
   <Section id="ofertas" title={t('school.courses.title')}>
     <div class="courses-grid">
-      {courses.map((course) => (
-        <CourseCard
-          title={course.data.title}
-          description={course.data.description}
-          level={course.data.level}
-          ageRange={course.data.ageRange}
-          icon={course.data.icon}
-        />
-      ))}
+      {courses.map((course) => {
+        const slug = course.id.replace('es/', '').replace(/\.md$/, '');
+        return (
+          <CourseCard
+            title={course.data.title}
+            description={course.data.description}
+            level={course.data.level}
+            ageRange={course.data.ageRange}
+            icon={course.data.icon}
+            href={`${site.base}/escuela/formacion/${slug}/`}
+            lang={lang}
+          />
+        );
+      })}
     </div>
   </Section>
 
@@ -72,11 +77,7 @@ const normativas = [
     </div>
   </Section>
 
-  <Section id="normativa" title={t('school.regulations.title')}>
-    <PdfTwoColumn pdfs={normativas} lang={lang} />
-  </Section>
-
-  <Section id="calendario" title={t('school.calendar.title')} background="soft">
+  <Section id="calendario" title={t('school.calendar.title')}>
     <PdfEmbed
       src={`${site.base}/pdfs/calendario-escolar.pdf`}
       title="Calendario Escolar"
@@ -85,8 +86,12 @@ const normativas = [
     />
   </Section>
 
-  <Section id="horario-clases" title={t('school.schedule.title')}>
+  <Section id="horario-clases" title={t('school.schedule.title')} background="soft">
     <ScheduleTable lang={lang} />
+  </Section>
+
+  <Section id="normativa" title={t('school.regulations.title')}>
+    <PdfTwoColumn pdfs={normativas} lang={lang} />
   </Section>
 </PageLayout>
 

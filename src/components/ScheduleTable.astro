@@ -17,47 +17,96 @@ const days = [
   { key: 'thursday', label: t('schedule.thursday') },
   { key: 'friday', label: t('schedule.friday') },
 ] as const;
+
+// Build mobile-friendly data: group by day
+const dayCards = days.map((day) => ({
+  label: day.label,
+  slots: scheduleData.slots
+    .filter((slot) => {
+      const value = slot[day.key as keyof typeof slot];
+      return value && value !== '';
+    })
+    .map((slot) => ({
+      time: slot.time,
+      subject: slot[day.key as keyof typeof slot] as string,
+    })),
+}));
 ---
 
-<div class="schedule-wrapper">
-  <table class="schedule-table">
-    <caption>{t('schedule.caption')}</caption>
-    <thead>
-      <tr>
-        <th scope="col">{t('schedule.time')}</th>
-        {days.map((day) => (
-          <th scope="col">{day.label}</th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {scheduleData.slots.map((slot) => (
+{/* Desktop table */}
+<div class="schedule-desktop">
+  <div class="schedule-wrapper">
+    <table class="schedule-table">
+      <caption>{t('schedule.caption')}</caption>
+      <thead>
         <tr>
-          <th scope="row" class="time-cell">{slot.time}</th>
-          {days.map((day) => {
-            const value = slot[day.key as keyof typeof slot] || '';
-            return (
-              <td class:list={[{ empty: !value }]}>
-                {value || '—'}
-              </td>
-            );
-          })}
+          <th scope="col">{t('schedule.time')}</th>
+          {days.map((day) => (
+            <th scope="col">{day.label}</th>
+          ))}
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {scheduleData.slots.map((slot) => (
+          <tr>
+            <th scope="row" class="time-cell">{slot.time}</th>
+            {days.map((day) => {
+              const value = slot[day.key as keyof typeof slot] || '';
+              return (
+                <td class:list={[{ empty: !value }]}>
+                  {value || '—'}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/* Mobile cards */}
+<div class="schedule-mobile">
+  <p class="schedule-mobile-caption">{t('schedule.caption')}</p>
+  <div class="schedule-cards">
+    {dayCards.map((day) => (
+      <div class="day-card">
+        <h4 class="day-card-title">{day.label}</h4>
+        {day.slots.length > 0 ? (
+          <ul class="day-card-slots">
+            {day.slots.map((slot) => (
+              <li class="day-card-slot">
+                <span class="slot-time">{slot.time}</span>
+                <span class="slot-subject">{slot.subject}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="day-card-empty">—</p>
+        )}
+      </div>
+    ))}
+  </div>
 </div>
 
 <style>
+  /* ── Desktop table (hidden on mobile) ── */
+  .schedule-desktop {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .schedule-desktop { display: block; }
+    .schedule-mobile { display: none; }
+  }
+
   .schedule-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background: var(--color-surface);
+    overflow: hidden;
   }
   .schedule-table {
-    min-width: 600px;
+    width: 100%;
     border-collapse: collapse;
   }
   caption {
@@ -99,10 +148,64 @@ const days = [
     color: var(--color-border);
   }
 
-  /* Responsive: cards en móvil */
-  @media (max-width: 767px) {
-    .schedule-wrapper {
-      overflow-x: auto;
-    }
+  /* ── Mobile cards ── */
+  .schedule-mobile-caption {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-md);
+    color: var(--color-primary-dark);
+    margin-block-end: var(--space-4);
+    text-align: center;
+  }
+  .schedule-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .day-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .day-card-title {
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    font-family: var(--font-body);
+    font-weight: var(--weight-semibold);
+    text-align: center;
+  }
+  .day-card-slots {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .day-card-slot {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--color-border);
+    align-items: center;
+  }
+  .day-card-slot:last-child {
+    border-block-end: none;
+  }
+  .slot-time {
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-xs);
+    color: var(--color-primary-dark);
+    white-space: nowrap;
+    min-width: 110px;
+  }
+  .slot-subject {
+    font-size: var(--text-xs);
+    color: var(--color-text);
+  }
+  .day-card-empty {
+    padding: var(--space-3) var(--space-4);
+    text-align: center;
+    color: var(--color-border);
   }
 </style>
