@@ -22,19 +22,19 @@ export const site = {
   // CONTACTO — Cambia estos datos cuando sea necesario
   // ────────────────────────────────────────────
   contact: {
-    email: 'info@sulpinosense.es',
-    phoneBand: '+34 965 47 XX XX',
-    phoneSchool: '+34 965 47 XX XX',
+    email: 'info@unionliricapinosense.com',
+    phoneBand: '+34 965 47 87 20',
+    phoneSchool: '+34 965 47 87 20',
     address: {
-      street: 'Calle Mayor, 1',
+      street: 'Calle Novelda, 1',
       city: 'Pinoso',
       province: 'Alicante',
       postalCode: '03650',
       country: 'España',
     },
     googleMapsEmbedUrl:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3130.0!2d-1.042!3d38.401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sPinoso!5e0!3m2!1ses!2ses!4v1',
-    googleMapsLinkUrl: 'https://maps.google.com/?q=Pinoso+Alicante+Sociedad+Musical',
+      'https://maps.google.com/maps?q=Calle+Novelda+1,+03650+Pinoso,+Alicante&t=&z=17&ie=UTF8&iwloc=&output=embed',
+    googleMapsLinkUrl: 'https://maps.google.com/?q=Calle+Novelda+1,+03650+Pinoso,+Alicante',
   },
 
   // ────────────────────────────────────────────
@@ -42,14 +42,14 @@ export const site = {
   // ────────────────────────────────────────────
   hours: {
     secretariatBand: {
-      es: 'Lunes a viernes de 18:00 a 20:00',
-      va: 'Dilluns a divendres de 18:00 a 20:00',
-      en: 'Monday to Friday, 6:00 PM – 8:00 PM',
+      es: 'Lunes a viernes de 16:00 a 20:00',
+      va: 'Dilluns a divendres de 16:00 a 20:00',
+      en: 'Monday to Friday, 4:00 PM – 8:00 PM',
     },
     secretariatSchool: {
-      es: 'Lunes a viernes de 17:00 a 20:00',
-      va: 'Dilluns a divendres de 17:00 a 20:00',
-      en: 'Monday to Friday, 5:00 PM – 8:00 PM',
+      es: 'Lunes a viernes de 16:00 a 20:00',
+      va: 'Dilluns a divendres de 16:00 a 20:00',
+      en: 'Monday to Friday, 4:00 PM – 8:00 PM',
     },
   },
 
@@ -57,9 +57,9 @@ export const site = {
   // REDES SOCIALES (deja vacío '' si no aplica)
   // ────────────────────────────────────────────
   social: {
-    facebook: 'https://facebook.com/sulpinosense',
-    instagram: 'https://instagram.com/sulpinosense',
-    youtube: '',
+    facebook: 'https://www.facebook.com/sociedadunionlirica.pinosense',
+    instagram: 'https://www.instagram.com/la.sulp?igsh=MTMyMzg1aGphZ3NqNA==',
+    youtube: 'https://youtube.com/@lasulp?si=Zmq8Wn2bLf_rFzL8',
   },
 
   // ────────────────────────────────────────────
@@ -67,7 +67,7 @@ export const site = {
   // ────────────────────────────────────────────
   band: {
     founded: '1890',
-    director: 'Nombre del Director',
+    director: 'Alberto',
     musicians: '60',
   },
 

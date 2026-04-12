@@ -1,0 +1,137 @@
+---
+import { site } from '../config/site';
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../config/site';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+
+const instagramUrl = site.social.instagram;
+// Extract username from Instagram URL
+const usernameMatch = instagramUrl.match(/instagram\.com\/([^/?]+)/);
+const username = usernameMatch ? usernameMatch[1] : 'la.sulp';
+const profileUrl = `https://www.instagram.com/${username}/`;
+---
+
+<div class="instagram-latest">
+  <div class="instagram-embed-container" id="instagram-container">
+    <div class="instagram-placeholder" id="instagram-placeholder">
+      <div class="instagram-consent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="instagram-icon">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+        <p class="instagram-consent-title">{t('instagram.title')}</p>
+        <p class="instagram-consent-text">{t('instagram.text')}</p>
+        <div class="instagram-consent-actions">
+          <button class="btn btn-primary" id="instagram-accept">{t('instagram.accept')}</button>
+          <a
+            href={profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline"
+          >
+            {t('instagram.viewProfile')}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div id="instagram-embed-slot" class="instagram-embed-slot" style="display:none"></div>
+  </div>
+</div>
+
+<style>
+  .instagram-latest {
+    max-width: 540px;
+    margin-inline: auto;
+  }
+  .instagram-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    background: var(--color-paper);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+  .instagram-consent {
+    text-align: center;
+    max-width: 380px;
+  }
+  .instagram-icon {
+    color: var(--color-primary);
+    margin-block-end: var(--space-4);
+  }
+  .instagram-consent-title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    color: var(--color-primary-dark);
+    margin-block-end: var(--space-3);
+  }
+  .instagram-consent-text {
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-6);
+  }
+  .instagram-consent-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+  .instagram-embed-slot {
+    min-height: 400px;
+  }
+  .instagram-embed-slot :global(iframe) {
+    border-radius: var(--radius-lg) !important;
+  }
+</style>
+
+<script define:vars={{ username }}>
+  const STORAGE_KEY = 'sulp-instagram-consent';
+
+  function loadInstagramEmbed() {
+    const slot = document.getElementById('instagram-embed-slot');
+    const placeholder = document.getElementById('instagram-placeholder');
+    if (!slot || !placeholder) return;
+
+    placeholder.style.display = 'none';
+    slot.style.display = 'block';
+
+    // Use Instagram's oEmbed-compatible blockquote + embed.js approach
+    slot.innerHTML = `
+      <blockquote
+        class="instagram-media"
+        data-instgrm-captioned
+        data-instgrm-permalink="https://www.instagram.com/${username}/"
+        data-instgrm-version="14"
+        style="background:#FFF; border:0; border-radius:16px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:0; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);">
+      </blockquote>
+    `;
+
+    // Load Instagram embed script
+    if (!document.querySelector('script[src*="instagram.com/embed"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://www.instagram.com/embed.js';
+      script.async = true;
+      document.body.appendChild(script);
+    } else if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    }
+  }
+
+  // Check existing consent
+  if (localStorage.getItem(STORAGE_KEY) === 'accepted') {
+    loadInstagramEmbed();
+  }
+
+  // Listen for accept
+  document.getElementById('instagram-accept')?.addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    loadInstagramEmbed();
+  });
+</script>
