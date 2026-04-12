@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sociedad-union-lirica-pinosense.github.io/web/sitemap-index.xml

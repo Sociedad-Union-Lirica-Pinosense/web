@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../i18n/utils';
+import { site, type Locale } from '../config/site';
+
+interface Props {
+  lang?: Locale;
+  limit?: number;
+}
+
+const { lang = 'es', limit = 3 } = Astro.props;
+const t = useTranslations(lang);
+
+const newsSlug = lang === 'es' ? 'noticias' : lang === 'va' ? 'noticies' : 'news';
+const prefix = lang === site.defaultLocale ? site.base : `${site.base}/${lang}`;
+
+const allNews = (await getCollection('news'))
+  .filter((n) => n.data.lang === lang && !n.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, limit);
+---
+
+{allNews.length > 0 && (
+  <div class="news-expandable">
+    {allNews.map((post, i) => {
+      const slug = post.id.replace(`${lang}/`, '').replace(/\.md$/, '');
+      const postUrl = `${prefix}/${newsSlug}/${slug}/`;
+      const dateFormatted = post.data.date.toLocaleDateString(
+        lang === 'va' ? 'ca' : lang,
+        { year: 'numeric', month: 'long', day: 'numeric' }
+      );
+      return (
+        <details class="news-item" open={i === 0}>
+          <summary class="news-summary">
+            <span class="news-summary-date">{dateFormatted}</span>
+            <span class="news-summary-title">{post.data.title}</span>
+          </summary>
+          <div class="news-detail">
+            <p>{post.data.excerpt}</p>
+            <a href={postUrl} class="news-read-more">
+              {t('school.news.readMore')} &rarr;
+            </a>
+          </div>
+        </details>
+      );
+    })}
+    <div class="news-all-link">
+      <a href={`${prefix}/${newsSlug}/`} class="btn btn-outline">
+        {t('school.news.allNews')}
+      </a>
+    </div>
+  </div>
+)}
+
+<style>
+  .news-expandable {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .news-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow var(--transition-fast);
+  }
+  .news-item[open] {
+    box-shadow: var(--shadow-md);
+  }
+  .news-summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-6);
+    cursor: pointer;
+    list-style: none;
+  }
+  .news-summary::-webkit-details-marker { display: none; }
+  .news-summary::marker { display: none; content: ''; }
+
+  .news-summary-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+  .news-summary-title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-md);
+    color: var(--color-primary-dark);
+  }
+  .news-summary:hover .news-summary-title {
+    color: var(--color-primary);
+  }
+  .news-detail {
+    padding: 0 var(--space-6) var(--space-6);
+    animation: fadeIn 200ms ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .news-detail { animation: none; }
+  }
+  .news-detail p {
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-3);
+  }
+  .news-read-more {
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-xs);
+  }
+  .news-all-link {
+    text-align: center;
+    margin-block-start: var(--space-4);
+  }
+</style>

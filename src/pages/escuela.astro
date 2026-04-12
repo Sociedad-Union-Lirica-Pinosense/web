@@ -1,0 +1,114 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import CourseCard from '../components/CourseCard.astro';
+import PdfTwoColumn from '../components/PdfTwoColumn.astro';
+import PdfEmbed from '../components/PdfEmbed.astro';
+import ScheduleTable from '../components/ScheduleTable.astro';
+import NewsExpandable from '../components/NewsExpandable.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../config/site';
+import { useTranslations } from '../i18n/utils';
+
+const lang = 'es';
+const t = useTranslations(lang);
+
+const courses = (await getCollection('courses'))
+  .filter((c) => c.data.lang === lang)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const normativas = [
+  { src: `${site.base}/pdfs/normativa-general.pdf`, title: 'Normativa General' },
+  { src: `${site.base}/pdfs/normativa-interna.pdf`, title: 'Normativa Interna' },
+];
+---
+
+<PageLayout
+  title={t('school.title')}
+  description="Escuela de Música de la Sociedad Unión Lírica Pinosense — Ofertas formativas, horarios, normativa y calendario escolar."
+  lang={lang}
+>
+  <Hero
+    image={`${site.base}/images/escuela/fachada-placeholder.svg`}
+    alt="Fachada de la Escuela de Música de Pinoso"
+    title={t('school.title')}
+    compact
+  />
+
+  <Section id="noticias-escuela" title={t('school.news.title')}>
+    <NewsExpandable lang={lang} limit={3} />
+  </Section>
+
+  <Section id="ubicacion" title={t('school.location.title')} background="soft">
+    <MapEmbed lang={lang} />
+  </Section>
+
+  <Section id="ofertas" title={t('school.courses.title')}>
+    <div class="courses-grid">
+      {courses.map((course) => (
+        <CourseCard
+          title={course.data.title}
+          description={course.data.description}
+          level={course.data.level}
+          ageRange={course.data.ageRange}
+          icon={course.data.icon}
+        />
+      ))}
+    </div>
+  </Section>
+
+  <Section id="horario-secretaria" title={t('school.hours.title')} background="soft">
+    <div class="hours-block">
+      <p class="hours-text">{site.hours.secretariatSchool[lang]}</p>
+      <p class="hours-contact">
+        <a href={`tel:${site.contact.phoneSchool.replace(/\s/g, '')}`}>
+          {site.contact.phoneSchool}
+        </a>
+        &nbsp;·&nbsp;
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      </p>
+    </div>
+  </Section>
+
+  <Section id="normativa" title={t('school.regulations.title')}>
+    <PdfTwoColumn pdfs={normativas} lang={lang} />
+  </Section>
+
+  <Section id="calendario" title={t('school.calendar.title')} background="soft">
+    <PdfEmbed
+      src={`${site.base}/pdfs/calendario-escolar.pdf`}
+      title="Calendario Escolar"
+      downloadLabel={t('school.calendar.download')}
+      lang={lang}
+    />
+  </Section>
+
+  <Section id="horario-clases" title={t('school.schedule.title')}>
+    <ScheduleTable lang={lang} />
+  </Section>
+</PageLayout>
+
+<style>
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-6);
+  }
+  .hours-block {
+    text-align: center;
+    max-width: 500px;
+    margin-inline: auto;
+  }
+  .hours-text {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary-dark);
+    margin-block-end: var(--space-4);
+  }
+  .hours-contact {
+    font-size: var(--text-md);
+  }
+</style>

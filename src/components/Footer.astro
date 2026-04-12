@@ -1,0 +1,111 @@
+---
+import { site, type Locale } from '../config/site';
+import { useTranslations } from '../i18n/utils';
+import SponsorGrid from './SponsorGrid.astro';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const prefix = lang === site.defaultLocale ? site.base : `${site.base}/${lang}`;
+const privacySlug = lang === 'es' ? 'privacidad' : lang === 'va' ? 'privacitat' : 'privacy';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <SponsorGrid lang={lang} />
+
+    <div class="footer-content">
+      <div class="footer-info">
+        <p class="footer-name">{site.name}</p>
+        <p>{site.contact.address.street}</p>
+        <p>{site.contact.address.postalCode} {site.contact.address.city}, {site.contact.address.province}</p>
+        <p>
+          <a href={`tel:${site.contact.phoneBand.replace(/\s/g, '')}`}>{site.contact.phoneBand}</a>
+        </p>
+        <p>
+          <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+        </p>
+      </div>
+
+      <div class="footer-social">
+        {site.social.facebook && (
+          <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            Facebook
+          </a>
+        )}
+        {site.social.instagram && (
+          <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            Instagram
+          </a>
+        )}
+        {site.social.youtube && (
+          <a href={site.social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            YouTube
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <a href={`${prefix}/${privacySlug}/`}>{t('footer.privacy')}</a>
+      <p>&copy; {year} {site.shortName}. {t('footer.rights')}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-on-primary);
+    padding-block: var(--space-12);
+    margin-block-start: var(--space-16);
+  }
+  .site-footer a {
+    color: var(--color-primary-soft);
+    transition: color var(--transition-fast);
+  }
+  .site-footer a:hover { color: var(--color-surface); }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-block: var(--space-8);
+  }
+  @media (min-width: 768px) {
+    .footer-content { grid-template-columns: 1fr auto; }
+  }
+
+  .footer-name {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-md);
+    margin-block-end: var(--space-2);
+  }
+  .footer-info p {
+    margin-block: var(--space-1);
+    font-size: var(--text-xs);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .footer-legal {
+    border-block-start: 1px solid rgba(255, 255, 255, 0.2);
+    padding-block-start: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-size: var(--text-xs);
+    opacity: 0.8;
+  }
+</style>

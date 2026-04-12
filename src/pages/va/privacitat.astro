@@ -1,0 +1,41 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/Section.astro';
+import { site } from '../../config/site';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'va';
+const t = useTranslations(lang);
+---
+
+<PageLayout title={t('privacy.title')} lang={lang}>
+  <Section title={t('privacy.title')}>
+    <div class="prose" style="margin-inline:auto">
+      <h3>Responsable del tractament</h3>
+      <p>
+        <strong>{site.name}</strong><br />
+        {site.contact.address.street}, {site.contact.address.postalCode} {site.contact.address.city}<br />
+        Email: <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      </p>
+
+      <h3>Cookies</h3>
+      <p>
+        Este lloc web no utilitza cookies pròpies. Únicament es carreguen continguts de Google Maps
+        a la pàgina de l'Escola si l'usuari dona el seu consentiment explícit. En eixe cas,
+        Google pot establir cookies de tercers.
+      </p>
+
+      <h3>Dades personals</h3>
+      <p>
+        No recopilem dades personals a través d'este lloc web. Els enllaços de correu electrònic
+        i telèfon et redirigixen a la teua aplicació corresponent sense emmagatzemar dades en els nostres servidors.
+      </p>
+
+      <h3>Drets</h3>
+      <p>
+        Pots exercir els teus drets d'accés, rectificació, supressió i oposició escrivint a
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
+      </p>
+    </div>
+  </Section>
+</PageLayout>

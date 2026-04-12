@@ -1,0 +1,102 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { site } from '../../config/site';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<PageLayout
+  title={t('nav.band')}
+  description="Sociedad Unión Lírica Pinosense — Concert band from Pinoso, Alicante, Spain. Musical tradition since 1890."
+  lang={lang}
+>
+  <Hero
+    image={`${site.base}/images/banda/hero-placeholder.svg`}
+    alt="Musicians and conductor of the Sociedad Unión Lírica Pinosense"
+    title={site.name}
+    subtitle={t('hero.subtitle', { year: site.band.founded })}
+  >
+    <a href="#contacto" class="btn btn-primary">{t('hero.cta.contact')}</a>
+    <a href={`${site.base}/en/school/`} class="btn btn-outline" style="border-color:white;color:white">
+      {t('hero.cta.school')}
+    </a>
+  </Hero>
+
+  <Section id="history" title={t('band.history.title')}>
+    <div class="prose" style="margin-inline:auto">
+      <p>
+        The <strong>Sociedad Unión Lírica Pinosense</strong> was founded in {site.band.founded}
+        in the town of Pinoso, province of Alicante, Spain. Since its beginnings, the society has
+        been a cornerstone of Pinoso's cultural life, training generations of musicians and
+        offering concerts, parades and performances at local and regional festivities.
+      </p>
+      <p>
+        With over a century of history, our band keeps the musical tradition alive while
+        incorporating new repertoires and techniques. It currently comprises {site.band.musicians}
+        musicians under the direction of <strong>{site.band.director}</strong>.
+      </p>
+      <p>
+        The society also has a <a href={`${site.base}/en/school/`}>music school</a> where future
+        band musicians are trained, from musical initiation through to advanced instrumental studies.
+      </p>
+    </div>
+  </Section>
+
+  <Section id="info" title={t('band.info.title')} background="soft">
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-label">{t('band.info.founded')}</span>
+        <span class="info-value">{site.band.founded}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">{t('band.info.director')}</span>
+        <span class="info-value">{site.band.director}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">{t('band.info.musicians')}</span>
+        <span class="info-value">{site.band.musicians}</span>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="contacto" title={t('band.contact.title')}>
+    <ContactBlock lang={lang} />
+  </Section>
+</PageLayout>
+
+<style>
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-6);
+    max-width: 700px;
+    margin-inline: auto;
+  }
+  .info-card {
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+  .info-label {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-block-end: var(--space-2);
+  }
+  .info-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary-dark);
+  }
+</style>

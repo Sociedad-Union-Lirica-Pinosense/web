@@ -1,0 +1,79 @@
+---
+import type { Locale } from '../config/site';
+import { site } from '../config/site';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  date: Date;
+  excerpt: string;
+  slug: string;
+  coverImage?: string;
+  lang?: Locale;
+}
+
+const { title, date, excerpt, slug, coverImage, lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const newsSlug = lang === 'es' ? 'noticias' : lang === 'va' ? 'noticies' : 'news';
+const prefix = lang === site.defaultLocale ? site.base : `${site.base}/${lang}`;
+const postUrl = `${prefix}/${newsSlug}/${slug}/`;
+
+const dateFormatted = date.toLocaleDateString(lang === 'va' ? 'ca' : lang, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="news-card">
+  {coverImage && (
+    <img src={coverImage} alt="" class="news-card-image" loading="lazy" decoding="async" />
+  )}
+  <div class="news-card-body">
+    <time class="news-card-date" datetime={date.toISOString()}>{dateFormatted}</time>
+    <h3 class="news-card-title">
+      <a href={postUrl}>{title}</a>
+    </h3>
+    <p class="news-card-excerpt">{excerpt}</p>
+    <a href={postUrl} class="news-card-link">{t('school.news.readMore')} &rarr;</a>
+  </div>
+</article>
+
+<style>
+  .news-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow var(--transition-fast);
+  }
+  .news-card:hover { box-shadow: var(--shadow-md); }
+  .news-card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .news-card-body { padding: var(--space-4) var(--space-6); }
+  .news-card-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+  .news-card-title {
+    font-size: var(--text-md);
+    margin-block: var(--space-2);
+  }
+  .news-card-title a {
+    text-decoration: none;
+    color: var(--color-primary-dark);
+  }
+  .news-card-title a:hover { color: var(--color-primary); }
+  .news-card-excerpt {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-3);
+  }
+  .news-card-link {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+  }
+</style>

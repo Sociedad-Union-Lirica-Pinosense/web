@@ -1,0 +1,62 @@
+---
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/900.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/print.css';
+import { site, type Locale } from '../config/site';
+import { getHtmlLang, getLocalizedPath } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  lang?: Locale;
+}
+
+const { title, description = '', ogImage, lang = 'es' } = Astro.props;
+const htmlLang = getHtmlLang(lang);
+const canonicalUrl = new URL(Astro.url.pathname, site.url).href;
+const fullTitle = `${title} | ${site.name}`;
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href={`${site.base}/favicon.svg`} />
+
+    {/* hreflang alternates */}
+    {site.locales.map((locale) => (
+      <link
+        rel="alternate"
+        hreflang={getHtmlLang(locale)}
+        href={new URL(getLocalizedPath(Astro.url.pathname, locale), site.url).href}
+      />
+    ))}
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalUrl} />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, site.url).href} />}
+    <meta property="og:locale" content={htmlLang} />
+    <meta property="og:site_name" content={site.name} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido principal</a>
+    <slot />
+  </body>
+</html>

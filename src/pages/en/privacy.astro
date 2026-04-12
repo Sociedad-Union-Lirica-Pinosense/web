@@ -1,0 +1,41 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/Section.astro';
+import { site } from '../../config/site';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<PageLayout title={t('privacy.title')} lang={lang}>
+  <Section title={t('privacy.title')}>
+    <div class="prose" style="margin-inline:auto">
+      <h3>Data Controller</h3>
+      <p>
+        <strong>{site.name}</strong><br />
+        {site.contact.address.street}, {site.contact.address.postalCode} {site.contact.address.city}<br />
+        Email: <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      </p>
+
+      <h3>Cookies</h3>
+      <p>
+        This website does not use first-party cookies. Google Maps content is only loaded on the
+        School page if the user gives explicit consent. In that case, Google may set third-party
+        cookies. You can consult Google's privacy policy on their website.
+      </p>
+
+      <h3>Personal Data</h3>
+      <p>
+        We do not collect personal data through this website. Email and phone links redirect you
+        to your corresponding application without storing any data on our servers.
+      </p>
+
+      <h3>Rights</h3>
+      <p>
+        You may exercise your rights of access, rectification, erasure and objection by writing to
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
+      </p>
+    </div>
+  </Section>
+</PageLayout>

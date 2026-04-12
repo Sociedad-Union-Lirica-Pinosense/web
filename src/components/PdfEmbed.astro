@@ -1,0 +1,51 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../config/site';
+
+interface Props {
+  src: string;
+  title: string;
+  downloadLabel?: string;
+  lang?: Locale;
+}
+
+const { src, title, downloadLabel, lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const label = downloadLabel || t('pdf.download');
+---
+
+<div class="pdf-embed">
+  <object data={src} type="application/pdf" title={title} class="pdf-object">
+    <p>
+      {t('pdf.noSupport')}
+      <a href={src} download class="btn btn-primary">{label}</a>
+    </p>
+  </object>
+  <div class="pdf-actions">
+    <a href={src} download class="btn btn-outline">{label}</a>
+  </div>
+</div>
+
+<style>
+  .pdf-embed {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+  .pdf-object {
+    width: 100%;
+    height: 600px;
+    display: block;
+    border: none;
+  }
+  @media (max-width: 767px) {
+    .pdf-object { height: 400px; }
+  }
+  .pdf-actions {
+    padding: var(--space-4);
+    text-align: center;
+    background: var(--color-paper);
+    border-block-start: 1px solid var(--color-border);
+  }
+</style>

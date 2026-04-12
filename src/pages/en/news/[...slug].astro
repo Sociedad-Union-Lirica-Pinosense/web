@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import NewsPostLayout from '../../../layouts/NewsPostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('news', ({ data }) => data.lang === 'en' && !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace('en/', '').replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<NewsPostLayout
+  title={post.data.title}
+  date={post.data.date}
+  author={post.data.author}
+  coverImage={post.data.coverImage}
+  lang="en"
+>
+  <Content />
+</NewsPostLayout>

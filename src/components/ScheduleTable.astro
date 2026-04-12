@@ -1,0 +1,108 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../config/site';
+import scheduleData from '../data/semanal.json';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+
+const days = [
+  { key: 'monday', label: t('schedule.monday') },
+  { key: 'tuesday', label: t('schedule.tuesday') },
+  { key: 'wednesday', label: t('schedule.wednesday') },
+  { key: 'thursday', label: t('schedule.thursday') },
+  { key: 'friday', label: t('schedule.friday') },
+] as const;
+---
+
+<div class="schedule-wrapper">
+  <table class="schedule-table">
+    <caption>{t('schedule.caption')}</caption>
+    <thead>
+      <tr>
+        <th scope="col">{t('schedule.time')}</th>
+        {days.map((day) => (
+          <th scope="col">{day.label}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {scheduleData.slots.map((slot) => (
+        <tr>
+          <th scope="row" class="time-cell">{slot.time}</th>
+          {days.map((day) => {
+            const value = slot[day.key as keyof typeof slot] || '';
+            return (
+              <td class:list={[{ empty: !value }]}>
+                {value || '—'}
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .schedule-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+  .schedule-table {
+    min-width: 600px;
+    border-collapse: collapse;
+  }
+  caption {
+    padding: var(--space-4);
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-md);
+    color: var(--color-primary-dark);
+    text-align: start;
+    caption-side: top;
+  }
+  thead th {
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-xs);
+    padding: var(--space-3) var(--space-4);
+    text-align: center;
+    white-space: nowrap;
+  }
+  tbody th,
+  tbody td {
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--color-border);
+    font-size: var(--text-xs);
+    text-align: center;
+    vertical-align: middle;
+  }
+  .time-cell {
+    font-weight: var(--weight-semibold);
+    white-space: nowrap;
+    background-color: var(--color-paper);
+    text-align: start;
+  }
+  tbody tr:hover td {
+    background-color: var(--color-primary-soft);
+  }
+  .empty {
+    color: var(--color-border);
+  }
+
+  /* Responsive: cards en móvil */
+  @media (max-width: 767px) {
+    .schedule-wrapper {
+      overflow-x: auto;
+    }
+  }
+</style>

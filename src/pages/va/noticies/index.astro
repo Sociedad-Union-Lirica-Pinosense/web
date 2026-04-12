@@ -1,0 +1,45 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import NewsCard from '../../../components/NewsCard.astro';
+import Section from '../../../components/Section.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../../i18n/utils';
+
+const lang = 'va';
+const t = useTranslations(lang);
+
+const allNews = (await getCollection('news'))
+  .filter((n) => n.data.lang === lang && !n.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<PageLayout title={t('news.title')} description="Notícies de la Societat Unió Lírica Pinosense." lang={lang}>
+  <Section title={t('news.title')}>
+    <div class="news-grid">
+      {allNews.map((post) => {
+        const slug = post.id.replace(`${lang}/`, '').replace(/\.md$/, '');
+        return (
+          <NewsCard
+            title={post.data.title}
+            date={post.data.date}
+            excerpt={post.data.excerpt}
+            slug={slug}
+            coverImage={post.data.coverImage}
+            lang={lang}
+          />
+        );
+      })}
+    </div>
+    {allNews.length === 0 && (
+      <p style="text-align:center;color:var(--color-text-secondary)">No hi ha notícies disponibles.</p>
+    )}
+  </Section>
+</PageLayout>
+
+<style>
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-6);
+  }
+</style>
