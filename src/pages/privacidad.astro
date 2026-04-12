@@ -1,0 +1,42 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import { site } from '../config/site';
+import { useTranslations } from '../i18n/utils';
+
+const lang = 'es';
+const t = useTranslations(lang);
+---
+
+<PageLayout title={t('privacy.title')} lang={lang}>
+  <Section title={t('privacy.title')}>
+    <div class="prose" style="margin-inline:auto">
+      <h3>Responsable del tratamiento</h3>
+      <p>
+        <strong>{site.name}</strong><br />
+        {site.contact.address.street}, {site.contact.address.postalCode} {site.contact.address.city}<br />
+        Email: <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      </p>
+
+      <h3>Cookies</h3>
+      <p>
+        Este sitio web no utiliza cookies propias. Únicamente se cargan contenidos de Google Maps
+        en la página de la Escuela si el usuario da su consentimiento explícito. En ese caso,
+        Google puede establecer cookies de terceros. Puedes consultar la
+        política de privacidad de Google en su sitio web.
+      </p>
+
+      <h3>Datos personales</h3>
+      <p>
+        No recopilamos datos personales a través de este sitio web. Los enlaces de correo electrónico
+        y teléfono te redirigen a tu aplicación correspondiente sin almacenar datos en nuestros servidores.
+      </p>
+
+      <h3>Derechos</h3>
+      <p>
+        Puedes ejercer tus derechos de acceso, rectificación, supresión y oposición escribiendo a
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
+      </p>
+    </div>
+  </Section>
+</PageLayout>

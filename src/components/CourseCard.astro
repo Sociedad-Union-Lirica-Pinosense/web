@@ -1,0 +1,69 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  level?: string;
+  ageRange?: string;
+  icon?: string;
+}
+
+const { title, description, level, ageRange, icon } = Astro.props;
+---
+
+<div class="course-card">
+  {icon && <span class="course-icon" aria-hidden="true">{icon}</span>}
+  <h3 class="course-title">{title}</h3>
+  <p class="course-desc">{description}</p>
+  <div class="course-meta">
+    {level && <span class="course-badge">{level}</span>}
+    {ageRange && <span class="course-age">{ageRange}</span>}
+  </div>
+</div>
+
+<style>
+  .course-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    text-align: center;
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  }
+  .course-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .course-icon {
+    font-size: var(--text-3xl);
+    display: block;
+    margin-block-end: var(--space-3);
+  }
+  .course-title {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-3);
+  }
+  .course-desc {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-4);
+  }
+  .course-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    justify-content: center;
+  }
+  .course-badge {
+    background: var(--color-primary-soft);
+    color: var(--color-primary-dark);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+  }
+  .course-age {
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    padding: var(--space-1) var(--space-3);
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../config/site';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+
+const sponsors = (await getCollection('sponsors'))
+  .filter((s) => s.data.active && !s.id.startsWith('_'))
+  .sort((a, b) => b.data.weight - a.data.weight);
+---
+
+{sponsors.length > 0 && (
+  <div class="sponsor-section">
+    <h3 class="sponsor-title">{t('footer.sponsors')}</h3>
+    <div class="sponsor-grid">
+      {sponsors.map((sponsor) => (
+        <a
+          href={sponsor.data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="sponsor-link"
+        >
+          <img
+            src={sponsor.data.logo}
+            alt={sponsor.data.alt}
+            class="sponsor-logo"
+            loading="lazy"
+            decoding="async"
+            width="140"
+            height="80"
+          />
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .sponsor-section {
+    padding-block-end: var(--space-8);
+    margin-block-end: var(--space-6);
+    border-block-end: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .sponsor-title {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary-soft);
+    margin-block-end: var(--space-4);
+    text-align: center;
+    font-family: var(--font-body);
+    font-weight: var(--weight-semibold);
+  }
+  .sponsor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-6);
+    align-items: center;
+    justify-items: center;
+  }
+  .sponsor-link {
+    display: block;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+  .sponsor-link:hover { opacity: 1; }
+  .sponsor-logo {
+    max-height: 60px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+</style>

@@ -1,0 +1,54 @@
+---
+import { site, type Locale } from '../config/site';
+import { useTranslations, getLocalizedPath } from '../i18n/utils';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="language-picker">
+  <span class="sr-only">{t('lang.select')}</span>
+  <ul class="lang-list" role="list">
+    {site.locales.map((locale) => (
+      <li>
+        {locale === lang ? (
+          <span class="lang-current" aria-current="page">{t(`lang.${locale}` as any)}</span>
+        ) : (
+          <a href={getLocalizedPath(Astro.url.pathname, locale)} class="lang-link" hreflang={locale}>
+            {t(`lang.${locale}` as any)}
+          </a>
+        )}
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .lang-list {
+    display: flex;
+    gap: var(--space-1);
+    list-style: none;
+    padding: 0;
+    font-size: var(--text-xs);
+  }
+  .lang-list li:not(:last-child)::after {
+    content: '|';
+    margin-inline-start: var(--space-1);
+    color: var(--color-border);
+  }
+  .lang-current {
+    font-weight: var(--weight-semibold);
+    color: var(--color-primary);
+  }
+  .lang-link {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+  }
+  .lang-link:hover {
+    color: var(--color-primary);
+  }
+</style>

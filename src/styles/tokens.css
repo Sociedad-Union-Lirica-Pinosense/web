@@ -1,0 +1,89 @@
+/* ============================================================
+   TOKENS DE DISEÑO — Paleta y tipografía
+   Si cambias estos valores, actualiza también src/config/site.ts
+   ============================================================ */
+
+:root {
+  /* ── Paleta de colores (Burdeos 520) ── */
+  --color-primary: #A23139;
+  --color-primary-dark: #7A252C;
+  --color-primary-light: #C84852;
+  --color-primary-soft: #F6E4E6;
+  --color-accent-gold: #C8A24C;
+
+  --color-ink: #1A1214;
+  --color-ink-soft: #4A3F42;
+  --color-paper: #FBF9F6;
+  --color-surface: #FFFFFF;
+  --color-border: #E8E0DC;
+
+  --color-success: #2E7D4F;
+  --color-warning: #B8862A;
+  --color-error: #9A1B1B;
+
+  /* Semánticos */
+  --color-text: var(--color-ink);
+  --color-text-secondary: var(--color-ink-soft);
+  --color-text-on-primary: #FFFFFF;
+  --color-bg: var(--color-paper);
+  --color-bg-card: var(--color-surface);
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-primary-dark);
+  --color-focus-ring: var(--color-primary-light);
+
+  /* ── Tipografía ── */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Escala modular 1.25 — Major Third */
+  --text-xs: 0.875rem;    /* 14px */
+  --text-sm: 1rem;        /* 16px (base) */
+  --text-md: 1.25rem;     /* 20px */
+  --text-lg: 1.5625rem;   /* 25px */
+  --text-xl: 1.9375rem;   /* 31px */
+  --text-2xl: 2.4375rem;  /* 39px */
+  --text-3xl: 3.0625rem;  /* 49px */
+  --text-4xl: 3.8125rem;  /* 61px */
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+
+  /* ── Espaciado ── */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ── Bordes y sombras ── */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(26, 18, 20, 0.06);
+  --shadow-md: 0 4px 12px rgba(26, 18, 20, 0.08);
+  --shadow-lg: 0 8px 24px rgba(26, 18, 20, 0.12);
+
+  /* ── Breakpoints (para referencia en JS, en CSS usar media queries) ── */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* ── Transiciones ── */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}

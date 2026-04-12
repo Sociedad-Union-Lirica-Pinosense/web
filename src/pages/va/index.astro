@@ -1,0 +1,103 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { site } from '../../config/site';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'va';
+const t = useTranslations(lang);
+---
+
+<PageLayout
+  title={t('nav.band')}
+  description="Societat Unió Lírica Pinosense — Banda de música de Pinós, Alacant. Tradició musical des de 1890."
+  lang={lang}
+>
+  <Hero
+    image={`${site.base}/images/banda/hero-placeholder.svg`}
+    alt="Músics i director de la Societat Unió Lírica Pinosense"
+    title={site.name}
+    subtitle={t('hero.subtitle', { year: site.band.founded })}
+  >
+    <a href="#contacto" class="btn btn-primary">{t('hero.cta.contact')}</a>
+    <a href={`${site.base}/va/escola/`} class="btn btn-outline" style="border-color:white;color:white">
+      {t('hero.cta.school')}
+    </a>
+  </Hero>
+
+  <Section id="historia" title={t('band.history.title')}>
+    <div class="prose" style="margin-inline:auto">
+      <p>
+        La <strong>Societat Unió Lírica Pinosense</strong> va ser fundada l'any {site.band.founded}
+        a la localitat de Pinós, província d'Alacant. Des dels seus inicis, la societat ha sigut un
+        pilar fonamental de la vida cultural pinosenca, formant a generacions de músics i oferint
+        concerts, passacarrers i actuacions en festivitats locals i regionals.
+      </p>
+      <p>
+        Amb més d'un segle d'història, la nostra banda manté viva la tradició musical alhora que
+        incorpora nous repertoris i tècniques. Actualment està composta per {site.band.musicians}
+        músics sota la direcció de <strong>{site.band.director}</strong>.
+      </p>
+      <p>
+        La societat compta a més amb una <a href={`${site.base}/va/escola/`}>escola de música</a> on
+        es formen els futurs músics de la banda, des de la iniciació musical fins a la formació
+        instrumental avançada.
+      </p>
+    </div>
+  </Section>
+
+  <Section id="info" title={t('band.info.title')} background="soft">
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-label">{t('band.info.founded')}</span>
+        <span class="info-value">{site.band.founded}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">{t('band.info.director')}</span>
+        <span class="info-value">{site.band.director}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">{t('band.info.musicians')}</span>
+        <span class="info-value">{site.band.musicians}</span>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="contacto" title={t('band.contact.title')}>
+    <ContactBlock lang={lang} />
+  </Section>
+</PageLayout>
+
+<style>
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-6);
+    max-width: 700px;
+    margin-inline: auto;
+  }
+  .info-card {
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+  .info-label {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-block-end: var(--space-2);
+  }
+  .info-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary-dark);
+  }
+</style>

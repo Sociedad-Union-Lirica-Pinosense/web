@@ -1,0 +1,24 @@
+@media print {
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+
+  .skip-link,
+  .site-header,
+  .cookie-banner,
+  .language-picker,
+  .btn,
+  nav,
+  footer { display: none !important; }
+
+  a { color: black; text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+
+  .container { max-width: 100%; padding: 0; }
+  .section { padding-block: 1rem; }
+
+  h1, h2, h3 { color: black; page-break-after: avoid; }
+  img { page-break-inside: avoid; }
+}

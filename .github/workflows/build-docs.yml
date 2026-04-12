@@ -1,0 +1,69 @@
+name: Build PDF Documents
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/src/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Pandoc and WeasyPrint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc weasyprint
+
+      - name: Build Manual de Marca
+        run: |
+          pandoc docs/src/manual-marca.md \
+            --css docs/src/style.css \
+            --self-contained \
+            -o /tmp/manual-marca.html
+          weasyprint /tmp/manual-marca.html public/docs/manual-marca.pdf
+
+      - name: Build Manual de Uso
+        run: |
+          pandoc docs/src/manual-uso.md \
+            --css docs/src/style.css \
+            --self-contained \
+            -o /tmp/manual-uso.html
+          weasyprint /tmp/manual-uso.html public/docs/manual-uso.pdf
+
+      - name: Build Normativa General (placeholder)
+        run: |
+          pandoc docs/src/normativa-general-placeholder.md \
+            --css docs/src/style.css \
+            --self-contained \
+            -o /tmp/normativa-general.html
+          weasyprint /tmp/normativa-general.html public/pdfs/normativa-general.pdf
+
+      - name: Build Normativa Interna (placeholder)
+        run: |
+          pandoc docs/src/normativa-interna-placeholder.md \
+            --css docs/src/style.css \
+            --self-contained \
+            -o /tmp/normativa-interna.html
+          weasyprint /tmp/normativa-interna.html public/pdfs/normativa-interna.pdf
+
+      - name: Build Calendario Escolar (placeholder)
+        run: |
+          pandoc docs/src/calendario-placeholder.md \
+            --css docs/src/style.css \
+            --self-contained \
+            -o /tmp/calendario.html
+          weasyprint /tmp/calendario.html public/pdfs/calendario-escolar.pdf
+
+      - name: Commit generated PDFs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'docs: regenerate PDFs from sources [skip ci]'
+          file_pattern: 'public/docs/*.pdf public/pdfs/*.pdf'

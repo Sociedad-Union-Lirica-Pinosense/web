@@ -1,0 +1,30 @@
+---
+interface Props {
+  id?: string;
+  title?: string;
+  background?: 'default' | 'soft' | 'surface';
+}
+
+const { id, title, background = 'default' } = Astro.props;
+const titleId = id ? `${id}-title` : undefined;
+---
+
+<section
+  id={id}
+  class:list={['section', `bg-${background}`]}
+  aria-labelledby={title ? titleId : undefined}
+>
+  <div class="container">
+    {title && <h2 id={titleId} class="section-title">{title}</h2>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .bg-soft { background-color: var(--color-primary-soft); }
+  .bg-surface { background-color: var(--color-surface); }
+  .section-title {
+    margin-block-end: var(--space-8);
+    text-align: center;
+  }
+</style>
