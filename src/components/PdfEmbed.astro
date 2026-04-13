@@ -16,10 +16,7 @@ const label = downloadLabel || t('pdf.download');
 
 <div class="pdf-embed">
   <object data={src} type="application/pdf" title={title} aria-label={`${title} — PDF`} class="pdf-object">
-    <p>
-      {t('pdf.noSupport')}
-      <a href={src} download class="btn btn-primary">{label}</a>
-    </p>
+    <p>{t('pdf.noSupport')}</p>
   </object>
   <div class="pdf-actions">
     <a href={src} download class="btn btn-outline">{label}</a>
