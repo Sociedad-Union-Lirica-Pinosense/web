@@ -67,7 +67,7 @@ export const site = {
   // ────────────────────────────────────────────
   band: {
     founded: '1929',
-    director: 'Alberto',
+    director: 'Alberto García Izquierdo',
     musicians: '60',
   },
 
