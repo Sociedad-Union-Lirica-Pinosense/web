@@ -8,6 +8,7 @@ import PdfTwoColumn from '../../components/PdfTwoColumn.astro';
 import PdfEmbed from '../../components/PdfEmbed.astro';
 import ScheduleTable from '../../components/ScheduleTable.astro';
 import NewsExpandable from '../../components/NewsExpandable.astro';
+import MembershipCTA from '../../components/MembershipCTA.astro';
 import { getCollection } from 'astro:content';
 import { site } from '../../config/site';
 import { useTranslations } from '../../i18n/utils';
@@ -91,6 +92,8 @@ const normativas = [
   <Section id="normativa" title={t('school.regulations.title')}>
     <PdfTwoColumn pdfs={normativas} lang={lang} />
   </Section>
+
+  <MembershipCTA lang={lang} />
 </PageLayout>
 
 <style>

@@ -5,6 +5,7 @@ import Section from '../../components/Section.astro';
 import ContactBlock from '../../components/ContactBlock.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
 import InstagramLatest from '../../components/InstagramLatest.astro';
+import MembershipCTA from '../../components/MembershipCTA.astro';
 import { site } from '../../config/site';
 import { useTranslations } from '../../i18n/utils';
 
@@ -74,6 +75,8 @@ const t = useTranslations(lang);
   <Section id="instagram" title={t('band.instagram.title')}>
     <InstagramLatest lang={lang} />
   </Section>
+
+  <MembershipCTA lang={lang} />
 
   <Section id="contacto" title={t('band.contact.title')} background="soft">
     <ContactBlock lang={lang} />
