@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { image, alt, title, subtitle, compact = false } = Astro.props;
+const loading = compact ? 'lazy' : 'eager';
+const fetchpriority = compact ? undefined : 'high';
 ---
 
 <section class:list={['hero', { 'hero--compact': compact }]}>
@@ -17,8 +19,10 @@ const { image, alt, title, subtitle, compact = false } = Astro.props;
     src={image}
     alt={alt}
     class="hero-image"
-    loading="eager"
+    loading={loading}
     decoding="async"
+    fetchpriority={fetchpriority}
+    sizes="100vw"
   />
   <div class="hero-overlay">
     <div class="container hero-content">
@@ -49,6 +53,7 @@ const { image, alt, title, subtitle, compact = false } = Astro.props;
     height: 100%;
     object-fit: cover;
     object-position: center top;
+    aspect-ratio: 16 / 9;
   }
   .hero-overlay {
     position: relative;

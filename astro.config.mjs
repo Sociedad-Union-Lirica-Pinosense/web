@@ -5,6 +5,7 @@ export default defineConfig({
   site: 'https://sociedad-union-lirica-pinosense.github.io',
   base: '/web',
   integrations: [sitemap()],
+  compressHTML: true,
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'va', 'en'],

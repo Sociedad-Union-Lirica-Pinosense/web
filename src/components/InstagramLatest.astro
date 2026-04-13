@@ -100,14 +100,38 @@ const profileUrl = `https://www.instagram.com/${username}/`;
       </blockquote>
     `;
 
-    // Load Instagram embed script
-    if (!document.querySelector('script[src*="instagram.com/embed"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://www.instagram.com/embed.js';
-      script.async = true;
-      document.body.appendChild(script);
-    } else if (window.instgrm) {
-      window.instgrm.Embeds.process();
+    // Add loading indicator
+    const loadingDiv = document.createElement('p');
+    loadingDiv.setAttribute('aria-live', 'polite');
+    loadingDiv.textContent = '⏳';
+    loadingDiv.style.textAlign = 'center';
+    loadingDiv.style.padding = '2rem';
+    slot.appendChild(loadingDiv);
+
+    // Load Instagram embed script with defer
+    try {
+      if (!document.querySelector('script[src*="instagram.com/embed"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://www.instagram.com/embed.js';
+        script.defer = true;
+        script.onload = () => {
+          loadingDiv.remove();
+          if (window.instgrm?.Embeds?.process) {
+            window.instgrm.Embeds.process();
+          }
+        };
+        script.onerror = () => {
+          loadingDiv.remove();
+          slot.innerHTML = `<p style="text-align:center;padding:2rem"><a href="https://www.instagram.com/${username}/" target="_blank" rel="noopener noreferrer">Ver perfil en Instagram →</a></p>`;
+        };
+        document.head.appendChild(script);
+      } else if (window.instgrm) {
+        loadingDiv.remove();
+        window.instgrm.Embeds.process();
+      }
+    } catch (e) {
+      loadingDiv.remove();
+      slot.innerHTML = `<p style="text-align:center;padding:2rem"><a href="https://www.instagram.com/${username}/" target="_blank" rel="noopener noreferrer">Ver perfil en Instagram →</a></p>`;
     }
   }
 

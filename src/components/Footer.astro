@@ -15,7 +15,7 @@ const prefix = lang === site.defaultLocale ? site.base : `${site.base}/${lang}`;
 const privacySlug = lang === 'es' ? 'privacidad' : lang === 'va' ? 'privacitat' : 'privacy';
 ---
 
-<footer class="site-footer">
+<footer class="site-footer" role="contentinfo">
   <div class="container">
     <SponsorGrid lang={lang} />
 
@@ -89,7 +89,7 @@ const privacySlug = lang === 'es' ? 'privacidad' : lang === 'va' ? 'privacitat' 
   }
   .footer-info p {
     margin-block: var(--space-1);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
   }
 
   .footer-social {
@@ -105,7 +105,12 @@ const privacySlug = lang === 'es' ? 'privacidad' : lang === 'va' ? 'privacitat' 
     flex-wrap: wrap;
     justify-content: space-between;
     gap: var(--space-4);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     opacity: 0.8;
+  }
+  .footer-social a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 </style>
