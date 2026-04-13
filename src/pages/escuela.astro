@@ -32,7 +32,7 @@ const normativas = [
   lang={lang}
 >
   <Hero
-    image={`${site.base}/images/escuela/fachada.jpg`}
+    image={`${site.base}/images/escuela/fachada.webp`}
     alt="Fachada de la Escuela de Música de Pinoso"
     title={t('school.title')}
     compact
@@ -40,10 +40,6 @@ const normativas = [
 
   <Section id="noticias-escuela" title={t('school.news.title')}>
     <NewsExpandable lang={lang} limit={3} />
-  </Section>
-
-  <Section id="ubicacion" title={t('school.location.title')} background="soft">
-    <MapEmbed lang={lang} />
   </Section>
 
   <Section id="ofertas" title={t('school.courses.title')}>
@@ -96,6 +92,11 @@ const normativas = [
   </Section>
 
   <MembershipCTA lang={lang} />
+
+ <Section id="ubicacion" title={t('school.location.title')} background="soft">
+    <MapEmbed lang={lang} />
+  </Section>
+
 </PageLayout>
 
 <style>

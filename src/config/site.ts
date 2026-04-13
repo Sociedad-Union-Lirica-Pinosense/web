@@ -8,7 +8,7 @@ export const site = {
   /** Nombre completo de la sociedad */
   name: 'Sociedad Unión Lírica Pinosense',
   /** Nombre corto para UI */
-  shortName: 'S.U.L. Pinosense',
+  shortName: 'S.U.L.P',
   /** URL del sitio desplegado (sin barra final) */
   url: 'https://sociedad-union-lirica-pinosense.github.io',
   /** Base path del sitio en GitHub Pages */
@@ -66,14 +66,14 @@ export const site = {
   // INFORMACIÓN DE LA BANDA
   // ────────────────────────────────────────────
   band: {
-    founded: '1890',
-    director: 'Alberto',
+    founded: '1929',
+    director: 'Alberto García Izquierdo',
     musicians: '60',
   },
 
   // ────────────────────────────────────────────
   // PALETA DE COLORES Y FUENTES
-  // (si cambias aquí, cambia también en src/styles/tokens.css)
+  // (si cambias aquí, cambia también en src/styles/tokens.css, es decir, los colores de la página)
   // ────────────────────────────────────────────
   brand: {
     colors: {
