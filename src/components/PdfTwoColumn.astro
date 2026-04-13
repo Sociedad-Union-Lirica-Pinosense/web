@@ -16,7 +16,7 @@ const t = useTranslations(lang);
     <div class="pdf-column">
       <h4 class="pdf-column-title">{pdf.title}</h4>
       <div class="pdf-frame">
-        <object data={pdf.src} type="application/pdf" title={pdf.title} class="pdf-object">
+        <object data={pdf.src} type="application/pdf" title={pdf.title} aria-label={`${pdf.title} — PDF`} class="pdf-object">
           <p>{t('pdf.noSupport')}</p>
         </object>
       </div>
@@ -55,10 +55,13 @@ const t = useTranslations(lang);
     border: none;
   }
   @media (max-width: 767px) {
-    .pdf-object { height: 300px; }
+    .pdf-object { height: 400px; }
   }
   .pdf-download {
     align-self: center;
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 </style>

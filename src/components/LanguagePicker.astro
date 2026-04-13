@@ -30,25 +30,38 @@ const t = useTranslations(lang);
 <style>
   .lang-list {
     display: flex;
-    gap: var(--space-1);
+    gap: var(--space-2);
     list-style: none;
     padding: 0;
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
   }
   .lang-list li:not(:last-child)::after {
     content: '|';
     margin-inline-start: var(--space-1);
     color: var(--color-border);
   }
-  .lang-current {
-    font-weight: var(--weight-semibold);
-    color: var(--color-primary);
-  }
   .lang-link {
     text-decoration: none;
     color: var(--color-text-secondary);
+    padding: var(--space-1) var(--space-2);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-sm);
   }
   .lang-link:hover {
     color: var(--color-primary);
+  }
+  .lang-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .lang-current {
+    font-weight: var(--weight-semibold);
+    color: var(--color-primary);
+    padding: var(--space-1) var(--space-2);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 </style>

@@ -25,10 +25,11 @@ const sponsors = (await getCollection('sponsors'))
           target="_blank"
           rel="noopener noreferrer"
           class="sponsor-link"
+          aria-label={`${sponsor.data.name} — ${t('footer.sponsors').toLowerCase()}`}
         >
           <img
             src={sponsor.data.logo}
-            alt={sponsor.data.alt}
+            alt={sponsor.data.alt || `${sponsor.data.name}`}
             class="sponsor-logo"
             loading="lazy"
             decoding="async"
@@ -48,7 +49,7 @@ const sponsors = (await getCollection('sponsors'))
     border-block-end: 1px solid rgba(255, 255, 255, 0.2);
   }
   .sponsor-title {
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-primary-soft);
@@ -65,11 +66,19 @@ const sponsors = (await getCollection('sponsors'))
     justify-items: center;
   }
   .sponsor-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
     opacity: 0.7;
     transition: opacity var(--transition-fast);
   }
   .sponsor-link:hover { opacity: 1; }
+  .sponsor-link:focus-visible {
+    outline: 2px solid var(--color-primary-soft);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
   .sponsor-logo {
     max-height: 60px;
     width: auto;

@@ -30,12 +30,18 @@ const fullTitle = `${title} | ${site.name}`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#A23139" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="dns-prefetch" href="https://maps.google.com" />
+    <link rel="dns-prefetch" href="https://www.instagram.com" />
 
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
 
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href={`${site.base}/favicon.svg`} />
+    <link rel="apple-touch-icon" href={`${site.base}/favicon.svg`} />
 
     {/* hreflang alternates */}
     {site.locales.map((locale) => (
@@ -54,6 +60,31 @@ const fullTitle = `${title} | ${site.name}`;
     {ogImage && <meta property="og:image" content={new URL(ogImage, site.url).href} />}
     <meta property="og:locale" content={htmlLang} />
     <meta property="og:site_name" content={site.name} />
+
+    {/* JSON-LD Structured Data */}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'MusicGroup',
+      name: site.name,
+      alternateName: site.shortName,
+      url: `${site.url}${site.base}/`,
+      foundingDate: site.band.founded,
+      email: site.contact.email,
+      telephone: site.contact.phoneBand,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.contact.address.street,
+        addressLocality: site.contact.address.city,
+        addressRegion: site.contact.address.province,
+        postalCode: site.contact.address.postalCode,
+        addressCountry: 'ES',
+      },
+      sameAs: [
+        site.social.facebook,
+        site.social.instagram,
+        site.social.youtube,
+      ].filter(Boolean),
+    })} />
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido principal</a>

@@ -138,8 +138,10 @@ const navItems = [
     font-weight: var(--weight-semibold);
     font-size: var(--text-md);
     color: var(--color-ink);
-    padding: var(--space-2) 0;
-    display: block;
+    padding: var(--space-3) var(--space-2);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
     transition: color var(--transition-fast);
   }
   .nav-link:hover { color: var(--color-primary); }
@@ -164,20 +166,66 @@ const navItems = [
 </style>
 
 <script>
-  const toggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.main-nav');
+  const toggle = document.querySelector('.menu-toggle') as HTMLElement | null;
+  const nav = document.querySelector('.main-nav') as HTMLElement | null;
+
+  function openMenu() {
+    toggle?.setAttribute('aria-expanded', 'true');
+    nav?.classList.add('open');
+    nav?.removeAttribute('aria-hidden');
+    // Focus first link in menu
+    const firstLink = nav?.querySelector('a') as HTMLElement | null;
+    firstLink?.focus();
+  }
+
+  function closeMenu() {
+    toggle?.setAttribute('aria-expanded', 'false');
+    nav?.classList.remove('open');
+    // Only hide on mobile (check if toggle is visible)
+    if (toggle && getComputedStyle(toggle).display !== 'none') {
+      nav?.setAttribute('aria-hidden', 'true');
+    }
+    toggle?.focus();
+  }
 
   toggle?.addEventListener('click', () => {
     const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    nav?.classList.toggle('open');
+    expanded ? closeMenu() : openMenu();
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && nav?.classList.contains('open')) {
-      toggle?.setAttribute('aria-expanded', 'false');
-      nav.classList.remove('open');
-      (toggle as HTMLElement)?.focus();
+      closeMenu();
+    }
+
+    // Focus trap: Tab cycles within open mobile menu
+    if (e.key === 'Tab' && nav?.classList.contains('open')) {
+      const focusable = nav.querySelectorAll<HTMLElement>('a, button');
+      const allFocusable = [toggle, ...Array.from(focusable)].filter(Boolean) as HTMLElement[];
+      const first = allFocusable[0];
+      const last = allFocusable[allFocusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    }
+  });
+
+  // Set initial aria-hidden on mobile
+  if (toggle && getComputedStyle(toggle).display !== 'none') {
+    nav?.setAttribute('aria-hidden', 'true');
+  }
+
+  // Handle resize: remove aria-hidden on desktop
+  window.addEventListener('resize', () => {
+    if (toggle && getComputedStyle(toggle).display === 'none') {
+      nav?.removeAttribute('aria-hidden');
+    } else if (!nav?.classList.contains('open')) {
+      nav?.setAttribute('aria-hidden', 'true');
     }
   });
 </script>

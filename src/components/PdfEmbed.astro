@@ -15,7 +15,7 @@ const label = downloadLabel || t('pdf.download');
 ---
 
 <div class="pdf-embed">
-  <object data={src} type="application/pdf" title={title} class="pdf-object">
+  <object data={src} type="application/pdf" title={title} aria-label={`${title} — PDF`} class="pdf-object">
     <p>
       {t('pdf.noSupport')}
       <a href={src} download class="btn btn-primary">{label}</a>
@@ -40,7 +40,7 @@ const label = downloadLabel || t('pdf.download');
     border: none;
   }
   @media (max-width: 767px) {
-    .pdf-object { height: 400px; }
+    .pdf-object { height: 500px; }
   }
   .pdf-actions {
     padding: var(--space-4);

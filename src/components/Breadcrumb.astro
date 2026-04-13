@@ -35,7 +35,7 @@ const { items } = Astro.props;
     list-style: none;
     padding: 0;
     gap: var(--space-1);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
   }
   .breadcrumb-item:not(:last-child)::after {
     content: '/';
@@ -45,6 +45,10 @@ const { items } = Astro.props;
   .breadcrumb-item a {
     color: var(--color-text-secondary);
     text-decoration: none;
+    padding: var(--space-1) var(--space-1);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
   .breadcrumb-item a:hover { color: var(--color-primary); }
   .breadcrumb-item [aria-current] {
