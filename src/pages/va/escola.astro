@@ -42,10 +42,6 @@ const normativas = [
     <NewsExpandable lang={lang} limit={3} />
   </Section>
 
-  <Section id="ubicacio" title={t('school.location.title')} background="soft">
-    <MapEmbed lang={lang} />
-  </Section>
-
   <Section id="ofertes" title={t('school.courses.title')}>
     <div class="courses-grid">
       {courses.map((course) => {
@@ -94,6 +90,11 @@ const normativas = [
   </Section>
 
   <MembershipCTA lang={lang} />
+
+  <Section id="ubicacio" title={t('school.location.title')} background="soft">
+    <MapEmbed lang={lang} />
+  </Section>
+
 </PageLayout>
 
 <style>
