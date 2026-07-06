@@ -17,6 +17,7 @@ const sponsors = (await getCollection('sponsors'))
 
 {sponsors.length > 0 && (
   <div class="sponsor-section">
+    <div class="sponsor-grid">
     {sponsors.map((sponsor) => (
   sponsor.data.url ? (
     <a
