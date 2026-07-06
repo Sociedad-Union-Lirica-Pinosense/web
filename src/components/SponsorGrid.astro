@@ -17,7 +17,6 @@ const sponsors = (await getCollection('sponsors'))
 
 {sponsors.length > 0 && (
   <div class="sponsor-section">
-    <h3 class="sponsor-title">{t('footer.sponsors')}</h3>
     <div class="sponsor-grid">
       {sponsors.map((sponsor) => (
         <a
@@ -48,16 +47,6 @@ const sponsors = (await getCollection('sponsors'))
     margin-block-end: var(--space-6);
     border-block-end: 1px solid rgba(255, 255, 255, 0.2);
   }
-  .sponsor-title {
-    font-size: var(--text-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-primary-soft);
-    margin-block-end: var(--space-4);
-    text-align: center;
-    font-family: var(--font-body);
-    font-weight: var(--weight-semibold);
-  }
   .sponsor-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -83,6 +72,5 @@ const sponsors = (await getCollection('sponsors'))
     max-height: 60px;
     width: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1);
   }
 </style>
