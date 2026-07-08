@@ -1,9 +1,15 @@
 {
   "slots": [
-    { "time": "16:00 - 17:00", "monday": "Música y Movimiento (A)", "tuesday": "", "wednesday": "Música y Movimiento (B)", "thursday": "", "friday": "" },
-    { "time": "17:00 - 18:00", "monday": "Lenguaje Musical 1", "tuesday": "Clarinete / Saxofón", "wednesday": "Lenguaje Musical 2", "thursday": "Flauta / Oboe", "friday": "Lenguaje Musical 3" },
-    { "time": "18:00 - 19:00", "monday": "Trompeta / Trompa", "tuesday": "Lenguaje Musical 1", "wednesday": "Trombón / Tuba", "thursday": "Lenguaje Musical 2", "friday": "Percusión" },
-    { "time": "19:00 - 20:00", "monday": "Conjunto instrumental", "tuesday": "Bombardino", "wednesday": "Conjunto instrumental", "thursday": "Clarinete / Saxofón", "friday": "Banda juvenil" },
-    { "time": "20:00 - 21:00", "monday": "", "tuesday": "", "wednesday": "Ensayo banda", "thursday": "", "friday": "Ensayo banda" }
+    { "time": "15:30", "monday": "", "tuesday": "4º IMUSI\n15:30h", "wednesday": "", "thursday": "4º IMUSI\n15:30h", "friday": "" },
+    { "time": "16:00", "monday": "Preparatorio IMUSI\n7 años (2019)\n16:00h", "tuesday": "", "wednesday": "Preparatorio IMUSI\n7 años (2019)\n16:00h", "thursday": "", "friday": "" },
+    { "time": "16:30", "monday": "", "tuesday": "Jardín Musical 1\n4 años (2021)\n16:30h", "wednesday": "", "thursday": "Jardín Musical 2\n5 años (2020)\n16:30h", "friday": "" },
+    { "time": "17:00", "monday": "1º IMUSI\n17:00h", "tuesday": "", "wednesday": "1º IMUSI\n17:00h", "thursday": "", "friday": "" },
+    { "time": "17:30", "monday": "", "tuesday": "Iniciación Musical\n6 años (2019)\n17:30h", "wednesday": "", "thursday": "Hora apoyo\nalumnado\n17:30h", "friday": "Conjunto\nInstrumental\n17:30h" },
+    { "time": "18:00", "monday": "2.1º IMUSI\n18:00h", "tuesday": "", "wednesday": "2.1º IMUSI\n18:00h", "thursday": "", "friday": "" },
+    { "time": "18:30", "monday": "", "tuesday": "2º IMUSI A\n18:30h", "wednesday": "", "thursday": "2º IMUSI A\n18:30h", "friday": "" },
+    { "time": "19:00", "monday": "3º IMUSI\n19:00h", "tuesday": "", "wednesday": "3º IMUSI\n19:00h", "thursday": "", "friday": "Banda Escuela\n19:00h" },
+    { "time": "19:30", "monday": "", "tuesday": "L. Adultos 1º M\nMiriam\n19:30h (1h)", "wednesday": "", "thursday": "L. Adultos 2º J\n19:30h", "friday": "" },
+    { "time": "20:00", "monday": "L. Adultos 3º L\nCarlos\n20:00h (1h)", "tuesday": "", "wednesday": "L. Adultos 2ºX\n20:00h (1h)", "thursday": "", "friday": "" },
+    { "time": "20:30", "monday": "", "tuesday": "", "wednesday": "", "thursday": "L. Adultos 4º J\nMiriam\n20:30h (1h)", "friday": "" }
   ]
 }
