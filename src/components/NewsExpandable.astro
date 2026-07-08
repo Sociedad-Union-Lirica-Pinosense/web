@@ -74,29 +74,13 @@ const allNews = (await getCollection('news'))
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    padding: var(--space-5) var(--space-10) var(--space-4) var(--space-6);
+    padding: var(--space-5) var(--space-6) var(--space-4);
     cursor: pointer;
     list-style: none;
-    position: relative;
     min-height: 44px;
   }
   .news-summary::-webkit-details-marker { display: none; }
   .news-summary::marker { display: none; content: ''; }
-  .news-summary::before {
-    content: '▸';
-    position: absolute;
-    right: var(--space-5);
-    top: var(--space-5);
-    font-size: var(--text-md);
-    color: var(--color-primary);
-    transition: transform 200ms ease;
-  }
-  .news-item[open] .news-summary::before {
-    transform: rotate(90deg);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .news-summary::before { transition: none; }
-  }
 
   .news-summary-date {
     display: block;
