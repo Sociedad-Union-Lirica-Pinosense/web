@@ -52,6 +52,15 @@ const normativas = [
     </div>
   </Section>
 
+  <Section id="matricula" title="Matrícula Curso 26-27" background="soft">
+    <PdfEmbed
+      src={`${site.base}/pdfs/matricula-curso-26-27.pdf`}
+      title="Matrícula Curso 26-27"
+      downloadLabel="Descargar información de matrícula"
+      lang={lang}
+    />
+  </Section>
+
   <Section id="horario-secretaria" title={t('school.hours.title')} background="soft">
     <div class="hours-block">
       <p class="hours-text">{site.hours.secretariatSchool[lang]}</p>
