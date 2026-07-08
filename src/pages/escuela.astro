@@ -3,7 +3,6 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import MapEmbed from '../components/MapEmbed.astro';
-import CourseCard from '../components/CourseCard.astro';
 import PdfTwoColumn from '../components/PdfTwoColumn.astro';
 import PdfEmbed from '../components/PdfEmbed.astro';
 import ScheduleTable from '../components/ScheduleTable.astro';
@@ -43,21 +42,13 @@ const normativas = [
   </Section>
 
   <Section id="ofertas" title={t('school.courses.title')}>
-    <div class="courses-grid">
-      {courses.map((course) => {
-        const slug = course.id.replace('es/', '').replace(/\.md$/, '');
-        return (
-          <CourseCard
-            title={course.data.title}
-            description={course.data.description}
-            level={course.data.level}
-            ageRange={course.data.ageRange}
-            icon={course.data.icon}
-            href={`${site.base}/escuela/formacion/${slug}/`}
-            lang={lang}
-          />
-        );
-      })}
+    <div class="school-infographic">
+      <img
+        src={`${site.base}/images/escuela/oferta-formativa-2026-2027.png`}
+        alt="Infografía de la estructura de la Escuela de Música de la Sociedad Unión Lírica Pinosense para el curso 2026/2027"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   </Section>
 
@@ -100,10 +91,17 @@ const normativas = [
 </PageLayout>
 
 <style>
-  .courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-6);
+  .school-infographic {
+    max-width: 1100px;
+    margin-inline: auto;
+  }
+
+  .school-infographic img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
   }
   .hours-block {
     text-align: center;
