@@ -25,6 +25,16 @@ const getSlotValue = (slot: (typeof scheduleData.slots)[number], dayKey: DayKey)
 
 const getRowSpan = (subject: string) => (subject === 'Banda Escuela' ? 3 : 2);
 
+const getScheduleGroup = (subject: string) =>
+  subject
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
 const isCoveredByPreviousSlot = (slotIndex: number, dayKey: DayKey) =>
   scheduleData.slots.some((slot, previousIndex) => {
     if (previousIndex >= slotIndex) return false;
@@ -70,7 +80,11 @@ const dayCards = days.map((day) => ({
               if (isCoveredByPreviousSlot(slotIndex, day.key)) return null;
 
               return (
-                <td rowspan={value ? getRowSpan(value) : undefined} class:list={[{ empty: !value }]}>
+                <td
+                  rowspan={value ? getRowSpan(value) : undefined}
+                  data-schedule-group={value ? getScheduleGroup(value) : undefined}
+                  class:list={[{ empty: !value }]}
+                >
                   {value || '—'}
                 </td>
               );
@@ -105,6 +119,24 @@ const dayCards = days.map((day) => ({
     ))}
   </div>
 </div>
+
+<script>
+  const scheduleCells = document.querySelectorAll<HTMLTableCellElement>('[data-schedule-group]');
+
+  const setHighlightedGroup = (group: string, highlighted: boolean) => {
+    document
+      .querySelectorAll<HTMLTableCellElement>(`[data-schedule-group="${group}"]`)
+      .forEach((cell) => cell.classList.toggle('is-highlighted', highlighted));
+  };
+
+  scheduleCells.forEach((cell) => {
+    const group = cell.dataset.scheduleGroup;
+    if (!group) return;
+
+    cell.addEventListener('mouseenter', () => setHighlightedGroup(group, true));
+    cell.addEventListener('mouseleave', () => setHighlightedGroup(group, false));
+  });
+</script>
 
 <style>
   /* ── Desktop table (hidden on mobile) ── */
@@ -161,7 +193,7 @@ const dayCards = days.map((day) => ({
     background-color: var(--color-paper);
     text-align: start;
   }
-  tbody tr:hover td {
+  tbody td.is-highlighted {
     background-color: var(--color-primary-soft);
   }
   .empty {
