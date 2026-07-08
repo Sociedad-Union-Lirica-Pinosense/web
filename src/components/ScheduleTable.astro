@@ -18,17 +18,32 @@ const days = [
   { key: 'friday', label: t('schedule.friday') },
 ] as const;
 
+type DayKey = (typeof days)[number]['key'];
+
+const getSlotValue = (slot: (typeof scheduleData.slots)[number], dayKey: DayKey) =>
+  slot[dayKey as keyof typeof slot] as string;
+
+const getRowSpan = (subject: string) => (subject === 'Banda Escuela' ? 3 : 2);
+
+const isCoveredByPreviousSlot = (slotIndex: number, dayKey: DayKey) =>
+  scheduleData.slots.some((slot, previousIndex) => {
+    if (previousIndex >= slotIndex) return false;
+
+    const value = getSlotValue(slot, dayKey);
+    return Boolean(value) && previousIndex + getRowSpan(value) > slotIndex;
+  });
+
 // Build mobile-friendly data: group by day
 const dayCards = days.map((day) => ({
   label: day.label,
   slots: scheduleData.slots
     .filter((slot) => {
-      const value = slot[day.key as keyof typeof slot];
+      const value = getSlotValue(slot, day.key);
       return value && value !== '';
     })
     .map((slot) => ({
       time: slot.time,
-      subject: slot[day.key as keyof typeof slot] as string,
+      subject: getSlotValue(slot, day.key),
     })),
 }));
 ---
@@ -47,13 +62,15 @@ const dayCards = days.map((day) => ({
         </tr>
       </thead>
       <tbody>
-        {scheduleData.slots.map((slot) => (
+        {scheduleData.slots.map((slot, slotIndex) => (
           <tr>
             <th scope="row" class="time-cell">{slot.time}</th>
             {days.map((day) => {
-              const value = slot[day.key as keyof typeof slot] || '';
+              const value = getSlotValue(slot, day.key);
+              if (isCoveredByPreviousSlot(slotIndex, day.key)) return null;
+
               return (
-                <td class:list={[{ empty: !value }]}>
+                <td rowspan={value ? getRowSpan(value) : undefined} class:list={[{ empty: !value }]}>
                   {value || '—'}
                 </td>
               );
