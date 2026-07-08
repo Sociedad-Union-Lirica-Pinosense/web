@@ -57,6 +57,8 @@ const allNews = (await getCollection('news'))
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+    max-width: 900px;
+    margin-inline: auto;
   }
   .news-item {
     background: var(--color-surface);
@@ -72,8 +74,7 @@ const allNews = (await getCollection('news'))
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    padding: var(--space-4) var(--space-6);
-    padding-inline-start: var(--space-10);
+    padding: var(--space-5) var(--space-10) var(--space-4) var(--space-6);
     cursor: pointer;
     list-style: none;
     position: relative;
@@ -84,7 +85,7 @@ const allNews = (await getCollection('news'))
   .news-summary::before {
     content: '▸';
     position: absolute;
-    left: var(--space-4);
+    right: var(--space-5);
     top: var(--space-5);
     font-size: var(--text-md);
     color: var(--color-primary);
@@ -98,6 +99,7 @@ const allNews = (await getCollection('news'))
   }
 
   .news-summary-date {
+    display: block;
     font-size: var(--text-sm);
     color: var(--color-text-secondary);
   }
@@ -111,7 +113,7 @@ const allNews = (await getCollection('news'))
     color: var(--color-primary);
   }
   .news-detail {
-    padding: 0 var(--space-6) var(--space-6) var(--space-10);
+    padding: 0 var(--space-6) var(--space-6);
     animation: fadeIn 200ms ease;
   }
   @keyframes fadeIn {
