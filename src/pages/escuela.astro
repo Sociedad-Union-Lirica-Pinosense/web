@@ -3,8 +3,6 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import MapEmbed from '../components/MapEmbed.astro';
-import PdfTwoColumn from '../components/PdfTwoColumn.astro';
-import PdfEmbed from '../components/PdfEmbed.astro';
 import ScheduleTable from '../components/ScheduleTable.astro';
 import NewsExpandable from '../components/NewsExpandable.astro';
 import MembershipCTA from '../components/MembershipCTA.astro';
@@ -18,11 +16,6 @@ const t = useTranslations(lang);
 const courses = (await getCollection('courses'))
   .filter((c) => c.data.lang === lang)
   .sort((a, b) => a.data.order - b.data.order);
-
-const normativas = [
-  { src: `${site.base}/pdfs/normativa-general.pdf`, title: 'Normativa General' },
-  { src: `${site.base}/pdfs/normativa-interna.pdf`, title: 'Normativa Interna' },
-];
 ---
 
 <PageLayout
@@ -100,10 +93,6 @@ const normativas = [
 
   <Section id="horario-clases" title={t('school.schedule.title')} background="soft">
     <ScheduleTable lang={lang} />
-  </Section>
-
-  <Section id="normativa" title={t('school.regulations.title')}>
-    <PdfTwoColumn pdfs={normativas} lang={lang} />
   </Section>
 
   <MembershipCTA lang={lang} />
