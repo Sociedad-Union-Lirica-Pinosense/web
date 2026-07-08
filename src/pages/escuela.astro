@@ -53,18 +53,34 @@ const normativas = [
   </Section>
 
   <Section id="matricula" title="Matrícula Curso 26-27" background="soft">
-    <div class="matricula-card">
-      <p>
-        Consulta toda la información sobre la matrícula del curso 2026/2027.
-      </p>
-      <a
-        href={`${site.base}/pdfs/matricula-curso-26-27.pdf`}
-        class="btn btn-outline"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Abrir información de matrícula
-      </a>
+    <div class="document-cards">
+      <div class="document-card">
+        <p>
+          Consulta toda la información sobre la matrícula del curso 2026/2027.
+        </p>
+        <a
+          href={`${site.base}/pdfs/matricula-curso-26-27.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir información de matrícula
+        </a>
+      </div>
+
+      <div class="document-card">
+        <p>
+          Consulta el calendario escolar del curso 2026/2027.
+        </p>
+        <a
+          href={`${site.base}/pdfs/calendario-escolar-2026-2027.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir calendario 2026/2027
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -81,14 +97,6 @@ const normativas = [
     </div>
   </Section>
 
-  <Section id="calendario" title={t('school.calendar.title')}>
-    <PdfEmbed
-      src={`${site.base}/pdfs/calendario-escolar-2026-2027.pdf`}
-      title="Calendario Escolar 2026-2027"
-      downloadLabel={t('school.calendar.download')}
-      lang={lang}
-    />
-  </Section>
 
   <Section id="horario-clases" title={t('school.schedule.title')} background="soft">
     <ScheduleTable lang={lang} />
@@ -120,9 +128,15 @@ const normativas = [
     box-shadow: var(--shadow-md);
   }
 
-  .matricula-card {
-    max-width: 700px;
+  .document-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    max-width: 1000px;
     margin-inline: auto;
+  }
+
+  .document-card {
     text-align: center;
     padding: var(--space-6);
     border: 1px solid var(--color-border);
@@ -131,9 +145,15 @@ const normativas = [
     box-shadow: var(--shadow-sm);
   }
 
-  .matricula-card p {
+  .document-card p {
     margin-block-end: var(--space-4);
     font-size: var(--text-lg);
+  }
+
+  @media (max-width: 767px) {
+    .document-cards {
+      grid-template-columns: 1fr;
+    }
   }
 
   .hours-block {
