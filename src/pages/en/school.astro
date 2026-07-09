@@ -85,6 +85,9 @@ const t = useTranslations(lang);
 
   <Section id="weekly-schedule" title={t('school.schedule.title')} background="soft">
     <ScheduleTable lang={lang} />
+    <p class="schedule-note">
+      Timetables may be subject to changes until the start of the school year, scheduled for 14 September.
+    </p>
   </Section>
 
   <MembershipCTA lang={lang} />
@@ -137,7 +140,8 @@ const t = useTranslations(lang);
     }
   }
 
-  .hours-block {
+  .hours-block,
+  .schedule-note {
     text-align: center;
     max-width: 500px;
     margin-inline: auto;
@@ -150,4 +154,9 @@ const t = useTranslations(lang);
     margin-block-end: var(--space-4);
   }
   .hours-contact { font-size: var(--text-md); }
+  .schedule-note {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
 </style>

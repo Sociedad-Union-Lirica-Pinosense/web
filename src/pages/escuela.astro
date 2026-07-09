@@ -93,6 +93,9 @@ const courses = (await getCollection('courses'))
 
   <Section id="horario-clases" title={t('school.schedule.title')} background="soft">
     <ScheduleTable lang={lang} />
+    <p class="schedule-note">
+      Los horarios pueden sufrir modificaciones hasta el inicio del curso, previsto para el 14 de septiembre.
+    </p>
   </Section>
 
   <MembershipCTA lang={lang} />
@@ -145,7 +148,8 @@ const courses = (await getCollection('courses'))
     }
   }
 
-  .hours-block {
+  .hours-block,
+  .schedule-note {
     text-align: center;
     max-width: 500px;
     margin-inline: auto;
@@ -159,5 +163,10 @@ const courses = (await getCollection('courses'))
   }
   .hours-contact {
     font-size: var(--text-md);
+  }
+  .schedule-note {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
   }
 </style>
