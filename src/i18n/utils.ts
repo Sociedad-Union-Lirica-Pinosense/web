@@ -60,7 +60,7 @@ export function getLocalizedPath(currentPath: string, targetLang: Locale): strin
   const prefix = targetLang === site.defaultLocale ? '' : targetLang;
   const path = [prefix, ...segments].filter(Boolean).join('/');
 
-  return `${site.base}/${path}/`;
+  return `${site.base}/${path}/`.replace(/\/\/+/g, '/');
 }
 
 /** Obtener el locale correspondiente a un código de idioma HTML */
