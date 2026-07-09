@@ -334,7 +334,7 @@ export const ui = {
     'membership.benefit.4.title': 'Musical Training',
     'membership.benefit.4.text': 'Priority access to workshops, masterclasses and training activities organised by the society.',
     'membership.benefit.5.title': 'Exclusive Events',
-    'membership.benef.5.text': 'Invitations to special events, assemblies and celebrations reserved for members.',
+    'membership.benefit.5.text': 'Invitations to special events, assemblies and celebrations reserved for members.',
     'membership.benefit.6.title': 'Cultural Legacy',
     'membership.benefit.6.text': 'Help preserve and enrich the musical heritage of Pinoso for future generations.',
     'membership.page.title': 'Become a Member — Benefits',
