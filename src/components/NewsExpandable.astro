@@ -74,7 +74,7 @@ const allNews = (await getCollection('news'))
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    padding: var(--space-5) var(--space-8) var(--space-4);
+    padding: var(--space-5) clamp(2rem, 5vw, 4rem) var(--space-4);
     cursor: pointer;
     list-style: none;
     min-height: 44px;
@@ -97,7 +97,7 @@ const allNews = (await getCollection('news'))
     color: var(--color-primary);
   }
   .news-detail {
-    padding: 0 var(--space-8) var(--space-6);
+    padding: 0 clamp(2rem, 5vw, 4rem) var(--space-6);
     animation: fadeIn 200ms ease;
   }
   @keyframes fadeIn {
