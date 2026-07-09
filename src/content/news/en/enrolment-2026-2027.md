@@ -20,6 +20,6 @@ New students should go to the Music School office during opening hours to comple
 
 You can also check all the detailed information in the following document:
 
-[View enrolment information for the 2026/2027 course](/web/pdfs/matricula-curso-26-27.pdf)
+[View enrolment information for the 2026/2027 course](/pdfs/matricula-curso-26-27.pdf)
 
 We also recommend checking the school calendar for the 2026/2027 course in the corresponding section of this page.

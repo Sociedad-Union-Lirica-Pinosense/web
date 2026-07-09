@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://sociedad-union-lirica-pinosense.github.io',
-  base: '/web',
+  site: 'https://www.unionliricapinosense.com',
+  base: '/',
   integrations: [sitemap()],
   compressHTML: true,
   i18n: {

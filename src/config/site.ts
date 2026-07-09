@@ -10,9 +10,9 @@ export const site = {
   /** Nombre corto para UI */
   shortName: 'S.U.L.P',
   /** URL del sitio desplegado (sin barra final) */
-  url: 'https://sociedad-union-lirica-pinosense.github.io',
+  url: 'https://www.unionliricapinosense.com',
   /** Base path del sitio en GitHub Pages */
-  base: '/web',
+  base: '',
   /** Idioma por defecto */
   defaultLocale: 'es' as const,
   /** Idiomas disponibles */

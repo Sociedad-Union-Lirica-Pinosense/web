@@ -20,6 +20,6 @@ L'alumnat nou haurà d'acudir a la secretaria de l'Escola de Música en el seu h
 
 També pots consultar tota la informació detallada en el següent document:
 
-[Consultar informació de matrícula del curs 2026/2027](/web/pdfs/matricula-curso-26-27.pdf)
+[Consultar informació de matrícula del curs 2026/2027](/pdfs/matricula-curso-26-27.pdf)
 
 Recomanem revisar també el calendari escolar del curs 2026/2027 des de l'apartat corresponent d'esta pàgina.

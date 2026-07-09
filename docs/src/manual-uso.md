@@ -75,7 +75,7 @@ Puedes usar **negrita**, *cursiva* y [enlaces](https://ejemplo.com).
 | `tags` | No | Etiquetas entre corchetes |
 | `draft` | Sí | `false` para publicar, `true` para borrador |
 | `lang` | Sí | `es`, `va` o `en` |
-| `coverImage` | No | Ruta a imagen de portada (ej: `/web/images/noticias/foto.jpg`) |
+| `coverImage` | No | Ruta a imagen de portada (ej: `/images/noticias/foto.jpg`) |
 
 ## 3. Cómo subir una foto
 
@@ -144,7 +144,7 @@ Los patrocinadores también son archivos Markdown.
 ```markdown
 ---
 name: "Empresa Ejemplo S.L."
-logo: "/web/images/sponsors/empresa-ejemplo.png"
+logo: "/images/sponsors/empresa-ejemplo.png"
 url: "https://www.empresa-ejemplo.com"
 alt: "Logo de Empresa Ejemplo"
 weight: 5
@@ -154,7 +154,7 @@ active: true
 
 5. Modifica los datos:
    - `name`: nombre del patrocinador
-   - `logo`: la ruta de la imagen que subiste (siempre empieza por `/web/images/sponsors/`)
+   - `logo`: la ruta de la imagen que subiste (siempre empieza por `/images/sponsors/`)
    - `url`: web del patrocinador
    - `alt`: descripción de la imagen para accesibilidad
    - `weight`: número para ordenar (mayor = aparece primero)
