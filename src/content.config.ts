@@ -19,7 +19,7 @@ const sponsors = defineCollection({
   schema: z.object({
     name: z.string(),
     logo: z.string(),
-    url: z.string().url(),
+    url: z.string().url().optional(),
     alt: z.string(),
     weight: z.number().default(0),
     active: z.boolean().default(true),

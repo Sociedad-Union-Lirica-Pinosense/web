@@ -3,9 +3,6 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import MapEmbed from '../components/MapEmbed.astro';
-import CourseCard from '../components/CourseCard.astro';
-import PdfTwoColumn from '../components/PdfTwoColumn.astro';
-import PdfEmbed from '../components/PdfEmbed.astro';
 import ScheduleTable from '../components/ScheduleTable.astro';
 import NewsExpandable from '../components/NewsExpandable.astro';
 import MembershipCTA from '../components/MembershipCTA.astro';
@@ -19,11 +16,6 @@ const t = useTranslations(lang);
 const courses = (await getCollection('courses'))
   .filter((c) => c.data.lang === lang)
   .sort((a, b) => a.data.order - b.data.order);
-
-const normativas = [
-  { src: `${site.base}/pdfs/normativa-general.pdf`, title: 'Normativa General' },
-  { src: `${site.base}/pdfs/normativa-interna.pdf`, title: 'Normativa Interna' },
-];
 ---
 
 <PageLayout
@@ -39,25 +31,49 @@ const normativas = [
   />
 
   <Section id="noticias-escuela" title={t('school.news.title')}>
-    <NewsExpandable lang={lang} limit={3} />
+    <NewsExpandable lang={lang} limit={1} />
   </Section>
 
   <Section id="ofertas" title={t('school.courses.title')}>
-    <div class="courses-grid">
-      {courses.map((course) => {
-        const slug = course.id.replace('es/', '').replace(/\.md$/, '');
-        return (
-          <CourseCard
-            title={course.data.title}
-            description={course.data.description}
-            level={course.data.level}
-            ageRange={course.data.ageRange}
-            icon={course.data.icon}
-            href={`${site.base}/escuela/formacion/${slug}/`}
-            lang={lang}
-          />
-        );
-      })}
+    <div class="school-infographic">
+      <img
+        src={`${site.base}/images/escuela/oferta-formativa-2026-2027.png`}
+        alt="Infografía de la estructura de la Escuela de Música de la Sociedad Unión Lírica Pinosense para el curso 2026/2027"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </Section>
+
+  <Section id="matricula" title="Matrícula y calendario Curso 26-27" background="soft">
+    <div class="document-cards">
+      <div class="document-card">
+        <p>
+          Consulta toda la información sobre la matrícula del curso 2026/2027.
+        </p>
+        <a
+          href={`${site.base}/pdfs/matricula-curso-26-27.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir información de matrícula
+        </a>
+      </div>
+
+      <div class="document-card">
+        <p>
+          Consulta el calendario escolar del curso 2026/2027.
+        </p>
+        <a
+          href={`${site.base}/pdfs/calendario-escolar-2026-2027.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir calendario 2026/2027
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -74,21 +90,12 @@ const normativas = [
     </div>
   </Section>
 
-  <Section id="calendario" title={t('school.calendar.title')}>
-    <PdfEmbed
-      src={`${site.base}/pdfs/calendario-escolar.pdf`}
-      title="Calendario Escolar"
-      downloadLabel={t('school.calendar.download')}
-      lang={lang}
-    />
-  </Section>
 
   <Section id="horario-clases" title={t('school.schedule.title')} background="soft">
     <ScheduleTable lang={lang} />
-  </Section>
-
-  <Section id="normativa" title={t('school.regulations.title')}>
-    <PdfTwoColumn pdfs={normativas} lang={lang} />
+    <p class="schedule-note">
+      Los horarios pueden sufrir modificaciones hasta el inicio del curso, previsto para el 14 de septiembre.
+    </p>
   </Section>
 
   <MembershipCTA lang={lang} />
@@ -100,12 +107,49 @@ const normativas = [
 </PageLayout>
 
 <style>
-  .courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-6);
+  .school-infographic {
+    max-width: 1100px;
+    margin-inline: auto;
   }
-  .hours-block {
+
+  .school-infographic img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .document-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  .document-card {
+    text-align: center;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .document-card p {
+    margin-block-end: var(--space-4);
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 767px) {
+    .document-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hours-block,
+  .schedule-note {
     text-align: center;
     max-width: 500px;
     margin-inline: auto;
@@ -119,5 +163,10 @@ const normativas = [
   }
   .hours-contact {
     font-size: var(--text-md);
+  }
+  .schedule-note {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
   }
 </style>

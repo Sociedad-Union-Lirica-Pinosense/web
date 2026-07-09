@@ -17,27 +17,40 @@ const sponsors = (await getCollection('sponsors'))
 
 {sponsors.length > 0 && (
   <div class="sponsor-section">
-    <h3 class="sponsor-title">{t('footer.sponsors')}</h3>
     <div class="sponsor-grid">
-      {sponsors.map((sponsor) => (
-        <a
-          href={sponsor.data.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="sponsor-link"
-          aria-label={`${sponsor.data.name} — ${t('footer.sponsors').toLowerCase()}`}
-        >
-          <img
-            src={sponsor.data.logo}
-            alt={sponsor.data.alt || `${sponsor.data.name}`}
-            class="sponsor-logo"
-            loading="lazy"
-            decoding="async"
-            width="140"
-            height="80"
-          />
-        </a>
-      ))}
+    {sponsors.map((sponsor) => (
+  sponsor.data.url ? (
+    <a
+      href={sponsor.data.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="sponsor-card sponsor-link"
+      aria-label={`${sponsor.data.name} — ${t('footer.sponsors').toLowerCase()}`}
+    >
+      <img
+        src={sponsor.data.logo}
+        alt={sponsor.data.alt || `${sponsor.data.name}`}
+        class="sponsor-logo"
+        loading="lazy"
+        decoding="async"
+        width="140"
+        height="80"
+      />
+    </a>
+  ) : (
+    <div class="sponsor-card">
+      <img
+        src={sponsor.data.logo}
+        alt={sponsor.data.alt || `${sponsor.data.name}`}
+        class="sponsor-logo"
+        loading="lazy"
+        decoding="async"
+        width="140"
+        height="80"
+      />
+    </div>
+  )
+))}
     </div>
   </div>
 )}
@@ -48,41 +61,46 @@ const sponsors = (await getCollection('sponsors'))
     margin-block-end: var(--space-6);
     border-block-end: 1px solid rgba(255, 255, 255, 0.2);
   }
-  .sponsor-title {
-    font-size: var(--text-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-primary-soft);
-    margin-block-end: var(--space-4);
-    text-align: center;
-    font-family: var(--font-body);
-    font-weight: var(--weight-semibold);
-  }
+
   .sponsor-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: var(--space-6);
-    align-items: center;
-    justify-items: center;
-  }
-  .sponsor-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    opacity: 0.7;
-    transition: opacity var(--transition-fast);
-  }
-  .sponsor-link:hover { opacity: 1; }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-5);
+  align-items: stretch;
+  justify-items: center;
+}
+
+.sponsor-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 240px;
+  min-height: 116px;
+  padding: var(--space-4);
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+}
+
+.sponsor-link {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.sponsor-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
   .sponsor-link:focus-visible {
     outline: 2px solid var(--color-primary-soft);
     outline-offset: 4px;
     border-radius: var(--radius-sm);
   }
+
   .sponsor-logo {
-    max-height: 60px;
+    max-height: 78px;
+    max-width: 100%;
     width: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1);
   }
 </style>

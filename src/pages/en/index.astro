@@ -4,7 +4,7 @@ import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
 import ContactBlock from '../../components/ContactBlock.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
-import InstagramLatest from '../../components/InstagramLatest.astro';
+
 import MembershipCTA from '../../components/MembershipCTA.astro';
 import { site } from '../../config/site';
 import { useTranslations } from '../../i18n/utils';
@@ -54,26 +54,9 @@ const t = useTranslations(lang);
     </div>
   </Section>
 
-  <Section id="info" title={t('band.info.title')} background="soft">
-    <div class="info-grid">
-      <div class="info-card">
-        <span class="info-label">{t('band.info.founded')}</span>
-        <span class="info-value">{site.band.founded}</span>
-      </div>
-      <div class="info-card">
-        <span class="info-label">{t('band.info.director')}</span>
-        <span class="info-value">{site.band.director}</span>
-      </div>
-      <div class="info-card">
-        <span class="info-label">{t('band.info.musicians')}</span>
-        <span class="info-value">{site.band.musicians}</span>
-      </div>
-    </div>
-  </Section>
+  
 
-  <Section id="instagram" title={t('band.instagram.title')}>
-    <InstagramLatest lang={lang} />
-  </Section>
+  
 
   <MembershipCTA lang={lang} />
 
@@ -82,34 +65,4 @@ const t = useTranslations(lang);
   </Section>
 </PageLayout>
 
-<style>
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-6);
-    max-width: 700px;
-    margin-inline: auto;
-  }
-  .info-card {
-    text-align: center;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-  }
-  .info-label {
-    display: block;
-    font-size: var(--text-xs);
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-block-end: var(--space-2);
-  }
-  .info-value {
-    display: block;
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: var(--weight-bold);
-    color: var(--color-primary-dark);
-  }
-</style>
+

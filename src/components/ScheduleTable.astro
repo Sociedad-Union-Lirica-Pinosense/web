@@ -18,17 +18,42 @@ const days = [
   { key: 'friday', label: t('schedule.friday') },
 ] as const;
 
+type DayKey = (typeof days)[number]['key'];
+
+const getSlotValue = (slot: (typeof scheduleData.slots)[number], dayKey: DayKey) =>
+  slot[dayKey as keyof typeof slot] as string;
+
+const getRowSpan = (subject: string) => (subject === 'Banda Escuela' ? 3 : 2);
+
+const getScheduleGroup = (subject: string) =>
+  subject
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const isCoveredByPreviousSlot = (slotIndex: number, dayKey: DayKey) =>
+  scheduleData.slots.some((slot, previousIndex) => {
+    if (previousIndex >= slotIndex) return false;
+
+    const value = getSlotValue(slot, dayKey);
+    return Boolean(value) && previousIndex + getRowSpan(value) > slotIndex;
+  });
+
 // Build mobile-friendly data: group by day
 const dayCards = days.map((day) => ({
   label: day.label,
   slots: scheduleData.slots
     .filter((slot) => {
-      const value = slot[day.key as keyof typeof slot];
+      const value = getSlotValue(slot, day.key);
       return value && value !== '';
     })
     .map((slot) => ({
       time: slot.time,
-      subject: slot[day.key as keyof typeof slot] as string,
+      subject: getSlotValue(slot, day.key),
     })),
 }));
 ---
@@ -47,13 +72,19 @@ const dayCards = days.map((day) => ({
         </tr>
       </thead>
       <tbody>
-        {scheduleData.slots.map((slot) => (
+        {scheduleData.slots.map((slot, slotIndex) => (
           <tr>
             <th scope="row" class="time-cell">{slot.time}</th>
             {days.map((day) => {
-              const value = slot[day.key as keyof typeof slot] || '';
+              const value = getSlotValue(slot, day.key);
+              if (isCoveredByPreviousSlot(slotIndex, day.key)) return null;
+
               return (
-                <td class:list={[{ empty: !value }]}>
+                <td
+                  rowspan={value ? getRowSpan(value) : undefined}
+                  data-schedule-group={value ? getScheduleGroup(value) : undefined}
+                  class:list={[{ empty: !value }]}
+                >
                   {value || '—'}
                 </td>
               );
@@ -88,6 +119,24 @@ const dayCards = days.map((day) => ({
     ))}
   </div>
 </div>
+
+<script>
+  const scheduleCells = document.querySelectorAll<HTMLTableCellElement>('[data-schedule-group]');
+
+  const setHighlightedGroup = (group: string, highlighted: boolean) => {
+    document
+      .querySelectorAll<HTMLTableCellElement>(`[data-schedule-group="${group}"]`)
+      .forEach((cell) => cell.classList.toggle('is-highlighted', highlighted));
+  };
+
+  scheduleCells.forEach((cell) => {
+    const group = cell.dataset.scheduleGroup;
+    if (!group) return;
+
+    cell.addEventListener('mouseenter', () => setHighlightedGroup(group, true));
+    cell.addEventListener('mouseleave', () => setHighlightedGroup(group, false));
+  });
+</script>
 
 <style>
   /* ── Desktop table (hidden on mobile) ── */
@@ -135,13 +184,16 @@ const dayCards = days.map((day) => ({
     text-align: center;
     vertical-align: middle;
   }
+  tbody td {
+    white-space: pre-line;
+  }
   .time-cell {
     font-weight: var(--weight-semibold);
     white-space: nowrap;
     background-color: var(--color-paper);
     text-align: start;
   }
-  tbody tr:hover td {
+  tbody td.is-highlighted {
     background-color: var(--color-primary-soft);
   }
   .empty {
@@ -202,6 +254,7 @@ const dayCards = days.map((day) => ({
   .slot-subject {
     font-size: var(--text-xs);
     color: var(--color-text);
+    white-space: pre-line;
   }
   .day-card-empty {
     padding: var(--space-3) var(--space-4);

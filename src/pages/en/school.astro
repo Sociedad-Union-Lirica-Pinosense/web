@@ -3,32 +3,19 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
 import MapEmbed from '../../components/MapEmbed.astro';
-import CourseCard from '../../components/CourseCard.astro';
-import PdfTwoColumn from '../../components/PdfTwoColumn.astro';
-import PdfEmbed from '../../components/PdfEmbed.astro';
 import ScheduleTable from '../../components/ScheduleTable.astro';
 import NewsExpandable from '../../components/NewsExpandable.astro';
 import MembershipCTA from '../../components/MembershipCTA.astro';
-import { getCollection } from 'astro:content';
 import { site } from '../../config/site';
 import { useTranslations } from '../../i18n/utils';
 
 const lang = 'en';
 const t = useTranslations(lang);
-
-const courses = (await getCollection('courses'))
-  .filter((c) => c.data.lang === lang)
-  .sort((a, b) => a.data.order - b.data.order);
-
-const normativas = [
-  { src: `${site.base}/pdfs/normativa-general.pdf`, title: 'General Regulations' },
-  { src: `${site.base}/pdfs/normativa-interna.pdf`, title: 'Internal Regulations' },
-];
 ---
 
 <PageLayout
   title={t('school.title')}
-  description="Music School of the Sociedad Unión Lírica Pinosense — Courses, schedules, regulations and school calendar."
+  description="Music School of the Sociedad Unión Lírica Pinosense — Courses, schedules, enrolment and school calendar."
   lang={lang}
 >
   <Hero
@@ -39,25 +26,49 @@ const normativas = [
   />
 
   <Section id="school-news" title={t('school.news.title')}>
-    <NewsExpandable lang={lang} limit={3} />
+    <NewsExpandable lang={lang} limit={1} />
   </Section>
 
   <Section id="courses" title={t('school.courses.title')}>
-    <div class="courses-grid">
-      {courses.map((course) => {
-        const slug = course.id.replace('en/', '').replace(/\.md$/, '');
-        return (
-          <CourseCard
-            title={course.data.title}
-            description={course.data.description}
-            level={course.data.level}
-            ageRange={course.data.ageRange}
-            icon={course.data.icon}
-            href={`${site.base}/en/school/course/${slug}/`}
-            lang={lang}
-          />
-        );
-      })}
+    <div class="school-infographic">
+      <img
+        src={`${site.base}/images/escuela/oferta-formativa-2026-2027.png`}
+        alt="Infographic showing the structure of the Sociedad Unión Lírica Pinosense Music School for the 2026/2027 course"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </Section>
+
+  <Section id="enrolment" title="Enrolment and calendar Course 26-27" background="soft">
+    <div class="document-cards">
+      <div class="document-card">
+        <p>
+          Check all the enrolment information for the 2026/2027 course.
+        </p>
+        <a
+          href={`${site.base}/pdfs/matricula-curso-26-27.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open enrolment information
+        </a>
+      </div>
+
+      <div class="document-card">
+        <p>
+          Check the school calendar for the 2026/2027 course.
+        </p>
+        <a
+          href={`${site.base}/pdfs/calendario-escolar-2026-2027.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open 2026/2027 calendar
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -72,21 +83,11 @@ const normativas = [
     </div>
   </Section>
 
-  <Section id="calendar" title={t('school.calendar.title')}>
-    <PdfEmbed
-      src={`${site.base}/pdfs/calendario-escolar.pdf`}
-      title="School Calendar"
-      downloadLabel={t('school.calendar.download')}
-      lang={lang}
-    />
-  </Section>
-
   <Section id="weekly-schedule" title={t('school.schedule.title')} background="soft">
     <ScheduleTable lang={lang} />
-  </Section>
-
-  <Section id="regulations" title={t('school.regulations.title')}>
-    <PdfTwoColumn pdfs={normativas} lang={lang} />
+    <p class="schedule-note">
+      Timetables may be subject to changes until the start of the school year, scheduled for 14 September.
+    </p>
   </Section>
 
   <MembershipCTA lang={lang} />
@@ -98,12 +99,49 @@ const normativas = [
 </PageLayout>
 
 <style>
-  .courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-6);
+  .school-infographic {
+    max-width: 1100px;
+    margin-inline: auto;
   }
-  .hours-block {
+
+  .school-infographic img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .document-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  .document-card {
+    text-align: center;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .document-card p {
+    margin-block-end: var(--space-4);
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 767px) {
+    .document-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hours-block,
+  .schedule-note {
     text-align: center;
     max-width: 500px;
     margin-inline: auto;
@@ -116,4 +154,9 @@ const normativas = [
     margin-block-end: var(--space-4);
   }
   .hours-contact { font-size: var(--text-md); }
+  .schedule-note {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
 </style>
