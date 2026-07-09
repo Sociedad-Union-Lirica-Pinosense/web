@@ -32,8 +32,10 @@ const allNews = (await getCollection('news'))
       return (
         <details class="news-item" open={i === 0}>
           <summary class="news-summary">
-            <span class="news-summary-date">{dateFormatted}</span>
-            <span class="news-summary-title">{post.data.title}</span>
+            <span class="news-summary-content">
+              <span class="news-summary-date">{dateFormatted}</span>
+              <span class="news-summary-title">{post.data.title}</span>
+            </span>
           </summary>
           <div class="news-detail">
             <p>{post.data.excerpt}</p>
@@ -71,16 +73,19 @@ const allNews = (await getCollection('news'))
     box-shadow: var(--shadow-md);
   }
   .news-summary {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-5) clamp(2rem, 5vw, 4rem) var(--space-4);
     cursor: pointer;
     list-style: none;
     min-height: 44px;
+    padding-block: var(--space-5) var(--space-4);
   }
   .news-summary::-webkit-details-marker { display: none; }
   .news-summary::marker { display: none; content: ''; }
+  .news-summary-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-inline: var(--space-8);
+  }
 
   .news-summary-date {
     display: block;
@@ -97,7 +102,7 @@ const allNews = (await getCollection('news'))
     color: var(--color-primary);
   }
   .news-detail {
-    padding: 0 clamp(2rem, 5vw, 4rem) var(--space-6);
+    padding: 0 var(--space-6) var(--space-6);
     animation: fadeIn 200ms ease;
   }
   @keyframes fadeIn {
