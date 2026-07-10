@@ -82,7 +82,7 @@ Puedes usar **negrita**, *cursiva* y [enlaces](https://ejemplo.com).
 ### Paso a paso
 
 1. Ve al repositorio en GitHub
-2. Navega a `public/images/` (elige la subcarpeta: `banda/`, `escuela/`, `sponsors/`)
+2. Navega a `public/images/` (elige la subcarpeta: `banda/`, `escuela/`, `institutions/`)
 3. Haz clic en **"Add file"** → **"Upload files"**
 4. Arrastra la imagen desde tu ordenador o haz clic en "choose your files"
 5. Escribe un mensaje de commit como "Subir foto concierto Navidad"
@@ -130,32 +130,32 @@ phoneBand: '+34 965 47 XX XX',
 
 > **Regla de oro**: cambia solo lo que hay entre comillas. Si borras una coma, una comilla o un punto y coma, la web se romperá. Si eso pasa, no te preocupes: puedes revertir el cambio (ver sección 8).
 
-## 5. Cómo añadir un patrocinador
+## 5. Cómo añadir una institución
 
-Los patrocinadores también son archivos Markdown.
+Las instituciones también son archivos Markdown.
 
 ### Paso a paso
 
-1. Sube el logo del patrocinador a `public/images/sponsors/` (ver sección 3)
-2. Ve a `src/content/sponsors/`
-3. Crea un nuevo archivo con el nombre del patrocinador, por ejemplo: `empresa-ejemplo.md`
+1. Sube el logo de la institución a `public/images/institutions/` (ver sección 3)
+2. Ve a `src/content/institutions/`
+3. Crea un nuevo archivo con el nombre de la institución, por ejemplo: `entidad-ejemplo.md`
 4. Pega esta plantilla:
 
 ```markdown
 ---
-name: "Empresa Ejemplo S.L."
-logo: "/images/sponsors/empresa-ejemplo.png"
-url: "https://www.empresa-ejemplo.com"
-alt: "Logo de Empresa Ejemplo"
+name: "Entidad Ejemplo"
+logo: "/images/institutions/entidad-ejemplo.png"
+url: "https://www.entidad-ejemplo.com"
+alt: "Logo de Entidad Ejemplo"
 weight: 5
 active: true
 ---
 ```
 
 5. Modifica los datos:
-   - `name`: nombre del patrocinador
-   - `logo`: la ruta de la imagen que subiste (siempre empieza por `/images/sponsors/`)
-   - `url`: web del patrocinador
+   - `name`: nombre de la institución
+   - `logo`: la ruta de la imagen que subiste (siempre empieza por `/images/institutions/`)
+   - `url`: web de la institución
    - `alt`: descripción de la imagen para accesibilidad
    - `weight`: número para ordenar (mayor = aparece primero)
    - `active`: `true` para mostrar, `false` para ocultar temporalmente
@@ -245,8 +245,8 @@ Contacta con el responsable técnico de la web. **No intentes arreglar el códig
 | Añadir noticia (inglés) | `src/content/news/en/nombre.md` |
 | Subir foto de la banda | `public/images/banda/` |
 | Subir foto de la escuela | `public/images/escuela/` |
-| Subir logo de sponsor | `public/images/sponsors/` |
-| Añadir patrocinador | `src/content/sponsors/nombre.md` |
+| Subir logo de institución | `public/images/institutions/` |
+| Añadir institución | `src/content/institutions/nombre.md` |
 | Cambiar datos de contacto | `src/config/site.ts` |
 | Cambiar horario de clases | `src/content/schedule/semanal.json` |
 | Reemplazar PDF normativa | `public/pdfs/normativa-general.pdf` |

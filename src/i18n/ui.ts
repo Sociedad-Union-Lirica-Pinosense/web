@@ -46,7 +46,7 @@ export const ui = {
     'news.published': 'Publicado el',
 
     // Footer
-    'footer.sponsors': 'Patrocinadores',
+    'footer.institutions': 'Instituciones',
     'footer.legal': 'Aviso Legal',
     'footer.privacy': 'Política de Privacidad',
     'footer.rights': 'Todos los derechos reservados.',
@@ -163,7 +163,7 @@ export const ui = {
     'news.back': 'Tornar a notícies',
     'news.published': 'Publicat el',
 
-    'footer.sponsors': 'Patrocinadors',
+    'footer.institutions': 'Institucions',
     'footer.legal': 'Avís Legal',
     'footer.privacy': 'Política de Privacitat',
     'footer.rights': 'Tots els drets reservats.',
@@ -273,7 +273,7 @@ export const ui = {
     'news.back': 'Back to news',
     'news.published': 'Published on',
 
-    'footer.sponsors': 'Sponsors',
+    'footer.institutions': 'Institutions',
     'footer.legal': 'Legal Notice',
     'footer.privacy': 'Privacy Policy',
     'footer.rights': 'All rights reserved.',

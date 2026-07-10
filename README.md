@@ -23,7 +23,7 @@ npm run preview  # Preview del build
 ```
 src/
   config/site.ts       # Variables centralizadas (contacto, colores, etc.)
-  content/             # Contenido editable (noticias, cursos, sponsors)
+  content/             # Contenido editable (noticias, cursos, instituciones)
   components/          # Componentes reutilizables
   layouts/             # Plantillas de página
   pages/               # Rutas del sitio

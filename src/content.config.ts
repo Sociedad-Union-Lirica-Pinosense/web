@@ -14,7 +14,7 @@ const news = defineCollection({
   }),
 });
 
-const sponsors = defineCollection({
+const institutions = defineCollection({
   type: 'content',
   schema: z.object({
     name: z.string(),
@@ -39,4 +39,4 @@ const courses = defineCollection({
   }),
 });
 
-export const collections = { news, sponsors, courses };
+export const collections = { news, institutions, courses };
