@@ -28,7 +28,7 @@ export const ui = {
     // Secciones escuela
     'school.title': 'Escuela de Música',
     'school.location.title': 'Ubicación',
-    'school.courses.title': 'Ofertas Formativas',
+    'school.courses.title': 'Oferta Formativa',
     'school.courses.moreInfo': 'Más información',
     'school.courses.back': 'Volver a ofertas formativas',
     'school.hours.title': 'Horario de Secretaría',
@@ -147,7 +147,7 @@ export const ui = {
 
     'school.title': 'Escola de Música',
     'school.location.title': 'Ubicació',
-    'school.courses.title': 'Ofertes Formatives',
+    'school.courses.title': 'Oferta Formativa',
     'school.courses.moreInfo': 'Més informació',
     'school.courses.back': 'Tornar a ofertes formatives',
     'school.hours.title': 'Horari de Secretaria',
@@ -257,7 +257,7 @@ export const ui = {
 
     'school.title': 'Music School',
     'school.location.title': 'Location',
-    'school.courses.title': 'Courses',
+    'school.courses.title': 'Educational Offer',
     'school.courses.moreInfo': 'More information',
     'school.courses.back': 'Back to courses',
     'school.hours.title': 'Office Hours',
