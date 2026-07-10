@@ -1,6 +1,6 @@
 ---
 name: "Bien de Interés Cultural"
-logo: "/images/sponsors/bic.png"
+logo: "/images/institutions/bic.png"
 
 alt: "Logo de Bien de Interés Cultural"
 weight: 70

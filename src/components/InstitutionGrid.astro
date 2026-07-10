@@ -10,27 +10,27 @@ interface Props {
 const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
 
-const sponsors = (await getCollection('sponsors'))
-  .filter((s) => s.data.active && !s.id.startsWith('_'))
+const institutions = (await getCollection('institutions'))
+  .filter((institution) => institution.data.active && !institution.id.startsWith('_'))
   .sort((a, b) => b.data.weight - a.data.weight);
 ---
 
-{sponsors.length > 0 && (
-  <div class="sponsor-section">
-    <div class="sponsor-grid">
-    {sponsors.map((sponsor) => (
-  sponsor.data.url ? (
+{institutions.length > 0 && (
+  <div class="institution-section">
+    <div class="institution-grid">
+    {institutions.map((institution) => (
+  institution.data.url ? (
     <a
-      href={sponsor.data.url}
+      href={institution.data.url}
       target="_blank"
       rel="noopener noreferrer"
-      class="sponsor-card sponsor-link"
-      aria-label={`${sponsor.data.name} — ${t('footer.sponsors').toLowerCase()}`}
+      class="institution-card institution-link"
+      aria-label={`${institution.data.name} — ${t('footer.institutions').toLowerCase()}`}
     >
       <img
-        src={sponsor.data.logo}
-        alt={sponsor.data.alt || `${sponsor.data.name}`}
-        class="sponsor-logo"
+        src={institution.data.logo}
+        alt={institution.data.alt || `${institution.data.name}`}
+        class="institution-logo"
         loading="lazy"
         decoding="async"
         width="140"
@@ -38,11 +38,11 @@ const sponsors = (await getCollection('sponsors'))
       />
     </a>
   ) : (
-    <div class="sponsor-card">
+    <div class="institution-card">
       <img
-        src={sponsor.data.logo}
-        alt={sponsor.data.alt || `${sponsor.data.name}`}
-        class="sponsor-logo"
+        src={institution.data.logo}
+        alt={institution.data.alt || `${institution.data.name}`}
+        class="institution-logo"
         loading="lazy"
         decoding="async"
         width="140"
@@ -56,13 +56,13 @@ const sponsors = (await getCollection('sponsors'))
 )}
 
 <style>
-  .sponsor-section {
+  .institution-section {
     padding-block-end: var(--space-8);
     margin-block-end: var(--space-6);
     border-block-end: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .sponsor-grid {
+  .institution-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: var(--space-5);
@@ -70,7 +70,7 @@ const sponsors = (await getCollection('sponsors'))
   justify-items: center;
 }
 
-.sponsor-card {
+.institution-card {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,22 +82,22 @@ const sponsors = (await getCollection('sponsors'))
   border-radius: var(--radius-sm);
 }
 
-.sponsor-link {
+.institution-link {
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.sponsor-link:hover {
+.institution-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
-  .sponsor-link:focus-visible {
+  .institution-link:focus-visible {
     outline: 2px solid var(--color-primary-soft);
     outline-offset: 4px;
     border-radius: var(--radius-sm);
   }
 
-  .sponsor-logo {
+  .institution-logo {
     max-height: 78px;
     max-width: 100%;
     width: auto;
