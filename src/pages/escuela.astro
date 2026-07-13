@@ -74,6 +74,20 @@ const courses = (await getCollection('courses'))
           Abrir calendario 2026/2027
         </a>
       </div>
+
+      <div class="document-card">
+        <p>
+          Consulta el Proyecto Educativo de Centro vigente de la Escuela de Música.
+        </p>
+        <a
+          href={`${site.base}/pdfs/proyecto-educativo-centro-2025-2026.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir Proyecto Educativo de Centro
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -122,7 +136,7 @@ const courses = (await getCollection('courses'))
 
   .document-cards {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--space-6);
     max-width: 1000px;
     margin-inline: auto;
