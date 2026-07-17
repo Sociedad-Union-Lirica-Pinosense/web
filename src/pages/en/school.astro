@@ -83,6 +83,20 @@ const t = useTranslations(lang);
           Open School Educational Project
         </a>
       </div>
+
+      <div class="document-card">
+        <p>
+          View the Music School's Annual General Plan for the 2025/2026 school year.
+        </p>
+        <a
+          href={`${site.base}/pdfs/programacion-general-anual-2025-2026.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Annual General Plan
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -128,7 +142,7 @@ const t = useTranslations(lang);
 
   .document-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-6);
     max-width: 1000px;
     margin-inline: auto;
