@@ -83,6 +83,20 @@ const t = useTranslations(lang);
           Obrir Projecte Educatiu de Centre
         </a>
       </div>
+
+      <div class="document-card">
+        <p>
+          Consulta la Programació General Anual de l'Escola de Música corresponent al curs 2025/2026.
+        </p>
+        <a
+          href={`${site.base}/pdfs/programacion-general-anual-2025-2026.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Obrir Programació General Anual
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -128,7 +142,7 @@ const t = useTranslations(lang);
 
   .document-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-6);
     max-width: 1000px;
     margin-inline: auto;
