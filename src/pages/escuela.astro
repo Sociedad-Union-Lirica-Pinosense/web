@@ -88,6 +88,20 @@ const courses = (await getCollection('courses'))
           Abrir Proyecto Educativo de Centro
         </a>
       </div>
+
+      <div class="document-card">
+        <p>
+          Consulta la Programación General Anual de la Escuela de Música correspondiente al curso 2025/2026.
+        </p>
+        <a
+          href={`${site.base}/pdfs/programacion-general-anual-2025-2026.pdf`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir Programación General Anual
+        </a>
+      </div>
     </div>
   </Section>
 
@@ -136,7 +150,7 @@ const courses = (await getCollection('courses'))
 
   .document-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-6);
     max-width: 1000px;
     margin-inline: auto;
