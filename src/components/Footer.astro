@@ -13,11 +13,28 @@ const year = new Date().getFullYear();
 
 const prefix = lang === site.defaultLocale ? site.base : `${site.base}/${lang}`;
 const privacySlug = lang === 'es' ? 'privacidad' : lang === 'va' ? 'privacitat' : 'privacy';
+const fundingLogoAlt: Record<Locale, string> = {
+  es: 'Escuela de Música financiada por la Generalitat Valenciana',
+  va: 'Escola de Música finançada per la Generalitat Valenciana',
+  en: 'Music School funded by the Generalitat Valenciana',
+};
 ---
 
 <footer class="site-footer" role="contentinfo">
   <div class="container">
     <InstitutionGrid lang={lang} />
+
+    <div class="funding-logo-section">
+      <div class="funding-logo-card">
+        <img
+          src={`${site.base}/images/institutions/generalitat-financia-escola.png`}
+          alt={fundingLogoAlt[lang]}
+          class="funding-logo"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
 
     <div class="footer-content">
       <div class="footer-info">
@@ -70,6 +87,31 @@ const privacySlug = lang === 'es' ? 'privacidad' : lang === 'va' ? 'privacitat' 
     transition: color var(--transition-fast);
   }
   .site-footer a:hover { color: var(--color-surface); }
+
+  .funding-logo-section {
+    display: flex;
+    justify-content: center;
+    margin-block: var(--space-6) var(--space-8);
+  }
+
+  .funding-logo-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 640px;
+    padding: var(--space-4) var(--space-6);
+    background: #ffffff;
+    border-radius: var(--radius-sm);
+  }
+
+  .funding-logo {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    object-fit: contain;
+  }
 
   .footer-content {
     display: grid;
