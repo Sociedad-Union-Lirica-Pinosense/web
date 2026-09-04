@@ -1,10 +1,10 @@
 {
   "slots": [
     { "time": "15:30", "monday": "", "tuesday": "4º IMUSI", "wednesday": "", "thursday": "4º IMUSI", "friday": "" },
-    { "time": "16:00", "monday": "Preparatorio IMUSI\n7 años (2019)", "tuesday": "", "wednesday": "Preparatorio IMUSI\n7 años (2019)", "thursday": "", "friday": "" },
-    { "time": "16:30", "monday": "", "tuesday": "Jardín Musical 1\n4 años (2022)", "wednesday": "", "thursday": "Jardín Musical 2\n5 años (2021)", "friday": "" },
+    { "time": "16:00", "monday": "Preparatorio IMUSI\n7 años (2019)", "tuesday": "", "wednesday": "Preparatorio IMUSI\n7 años (2019)", "thursday": "", "friday": "Jardín Musical 1\n4 años (2022)" },
+    { "time": "16:30", "monday": "", "tuesday": "Apoyo\nalumnado", "wednesday": "", "thursday": "Jardín Musical 2\n5 años (2021)", "friday": "" },
     { "time": "17:00", "monday": "1º IMUSI", "tuesday": "", "wednesday": "1º IMUSI", "thursday": "", "friday": "" },
-    { "time": "17:30", "monday": "", "tuesday": "Iniciación Musical\n6 años (2020)", "wednesday": "", "thursday": "Hora apoyo\nalumnado", "friday": "Conjunto\nInstrumental" },
+    { "time": "17:30", "monday": "", "tuesday": "Iniciación Musical\n6 años (2020)", "wednesday": "", "thursday": "Adultos nuevos", "friday": "Conjunto\nInstrumental" },
     { "time": "18:00", "monday": "2.1º IMUSI", "tuesday": "", "wednesday": "2.1º IMUSI", "thursday": "", "friday": "" },
     { "time": "18:30", "monday": "", "tuesday": "2º IMUSI A", "wednesday": "", "thursday": "2º IMUSI A", "friday": "" },
     { "time": "19:00", "monday": "3º IMUSI", "tuesday": "", "wednesday": "3º IMUSI", "thursday": "", "friday": "Banda Escuela" },
