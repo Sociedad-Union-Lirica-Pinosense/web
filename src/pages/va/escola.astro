@@ -27,6 +27,9 @@ const t = useTranslations(lang);
 
   <Section id="noticies-escola" title={t('school.news.title')}>
     <NewsExpandable lang={lang} limit={1} />
+    <div class="school-news-actions">
+      <a href="#horari-classes" class="btn btn-primary">Horaris 26-27</a>
+    </div>
   </Section>
 
   <Section id="ofertes" title={t('school.courses.title')}>
@@ -127,6 +130,12 @@ const t = useTranslations(lang);
 </PageLayout>
 
 <style>
+  .school-news-actions {
+    display: flex;
+    justify-content: center;
+    margin-block-start: var(--space-6);
+  }
+
   .school-infographic {
     max-width: 1100px;
     margin-inline: auto;
