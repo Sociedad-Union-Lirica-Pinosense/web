@@ -95,6 +95,10 @@ table {
   padding-block: var(--space-12);
 }
 
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 @media (min-width: 768px) {
   .section { padding-block: var(--space-16); }
 }
