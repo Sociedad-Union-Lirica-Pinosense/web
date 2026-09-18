@@ -23,22 +23,10 @@ type DayKey = (typeof days)[number]['key'];
 const getSlotValue = (slot: (typeof scheduleData.slots)[number], dayKey: DayKey) =>
   slot[dayKey as keyof typeof slot] as string;
 
-const getRowSpan = (subject: string) => (subject === 'Banda Escuela' ? 3 : 2);
-const overlappingEvents = scheduleData.overlappingEvents ?? [];
-
-const getSlotIndex = (time: string) =>
-  scheduleData.slots.findIndex((slot) => slot.time === time);
-
-const getEndTime = (start: string, duration: number) => {
-  const endSlot = scheduleData.slots[getSlotIndex(start) + duration];
-  return endSlot?.time ?? start;
+const getRowSpan = (subject: string) => {
+  if (subject.startsWith('Impregnación Musical 1')) return 1;
+  return subject.startsWith('Banda Escuela') ? 3 : 2;
 };
-
-const getActiveOverlappingEvents = (slotIndex: number, dayKey: DayKey) =>
-  overlappingEvents.filter((event) => {
-    const startIndex = getSlotIndex(event.start);
-    return event.day === dayKey && slotIndex >= startIndex && slotIndex < startIndex + event.duration;
-  });
 
 const getScheduleGroup = (subject: string) =>
   subject
@@ -50,40 +38,27 @@ const getScheduleGroup = (subject: string) =>
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 
-const isCoveredByPreviousSlot = (slotIndex: number, dayKey: DayKey) => {
-  if (getActiveOverlappingEvents(slotIndex, dayKey).length > 0) return false;
-
-  return scheduleData.slots.some((slot, previousIndex) => {
+const isCoveredByPreviousSlot = (slotIndex: number, dayKey: DayKey) =>
+  scheduleData.slots.some((slot, previousIndex) => {
     if (previousIndex >= slotIndex) return false;
 
     const value = getSlotValue(slot, dayKey);
     return Boolean(value) && previousIndex + getRowSpan(value) > slotIndex;
   });
-};
 
 // Build mobile-friendly data: group by day
-const dayCards = days.map((day) => {
-  const regularSlots = scheduleData.slots
-    .filter((slot) => Boolean(getSlotValue(slot, day.key)))
+const dayCards = days.map((day) => ({
+  label: day.label,
+  slots: scheduleData.slots
+    .filter((slot) => {
+      const value = getSlotValue(slot, day.key);
+      return value && value !== '';
+    })
     .map((slot) => ({
       time: slot.time,
       subject: getSlotValue(slot, day.key),
-    }));
-
-  const overlapSlots = overlappingEvents
-    .filter((event) => event.day === day.key)
-    .map((event) => ({
-      time: `${event.start}–${getEndTime(event.start, event.duration)}`,
-      subject: event.subject,
-    }));
-
-  return {
-    label: day.label,
-    slots: [...regularSlots, ...overlapSlots].sort(
-      (a, b) => getSlotIndex(a.time.slice(0, 5)) - getSlotIndex(b.time.slice(0, 5)),
-    ),
-  };
-});
+    })),
+}));
 ---
 
 {/* Desktop table */}
@@ -105,26 +80,7 @@ const dayCards = days.map((day) => {
             <th scope="row" class="time-cell">{slot.time}</th>
             {days.map((day) => {
               const value = getSlotValue(slot, day.key);
-              const activeEvents = getActiveOverlappingEvents(slotIndex, day.key);
               if (isCoveredByPreviousSlot(slotIndex, day.key)) return null;
-
-              if (activeEvents.length > 0) {
-                return (
-                  <td class="schedule-overlap">
-                    {activeEvents.map((event) => (
-                      <div
-                        class="schedule-overlap-item"
-                        data-schedule-group={getScheduleGroup(event.subject)}
-                      >
-                        <span>{event.subject}</span>
-                        <span class="schedule-overlap-time">
-                          {event.start}–{getEndTime(event.start, event.duration)}
-                        </span>
-                      </div>
-                    ))}
-                  </td>
-                );
-              }
 
               return (
                 <td
@@ -168,11 +124,11 @@ const dayCards = days.map((day) => {
 </div>
 
 <script>
-  const scheduleCells = document.querySelectorAll<HTMLElement>('[data-schedule-group]');
+  const scheduleCells = document.querySelectorAll<HTMLTableCellElement>('[data-schedule-group]');
 
   const setHighlightedGroup = (group: string, highlighted: boolean) => {
     document
-      .querySelectorAll<HTMLElement>(`[data-schedule-group="${group}"]`)
+      .querySelectorAll<HTMLTableCellElement>(`[data-schedule-group="${group}"]`)
       .forEach((cell) => cell.classList.toggle('is-highlighted', highlighted));
   };
 
@@ -240,26 +196,8 @@ const dayCards = days.map((day) => {
     background-color: var(--color-paper);
     text-align: start;
   }
-  [data-schedule-group].is-highlighted {
+  tbody td.is-highlighted {
     background-color: var(--color-primary-soft);
-  }
-  .schedule-overlap {
-    padding: 0;
-  }
-  .schedule-overlap-item {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-2) var(--space-3);
-    white-space: pre-line;
-  }
-  .schedule-overlap-item + .schedule-overlap-item {
-    border-block-start: 1px solid var(--color-border);
-  }
-  .schedule-overlap-time {
-    color: var(--color-text-secondary);
-    font-size: 0.85em;
-    white-space: nowrap;
   }
   .empty {
     color: var(--color-border);
