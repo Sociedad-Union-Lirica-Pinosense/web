@@ -3,8 +3,8 @@
     { "time": "15:30", "monday": "", "tuesday": "4º IMUSI", "wednesday": "", "thursday": "4º IMUSI", "friday": "" },
     { "time": "16:00", "monday": "Preparatorio IMUSI\n7 años (2019)", "tuesday": "", "wednesday": "Preparatorio IMUSI\n7 años (2019)", "thursday": "", "friday": "" },
     { "time": "16:30", "monday": "", "tuesday": "Apoyo\nalumnado", "wednesday": "", "thursday": "Adultos nuevos", "friday": "" },
-    { "time": "17:00", "monday": "1º IMUSI", "tuesday": "", "wednesday": "1º IMUSI", "thursday": "", "friday": "" },
-    { "time": "17:30", "monday": "", "tuesday": "Impregnación Musical 3\n6 años (2020)", "wednesday": "", "thursday": "Impregnación Musical 2\n5 años (2021)", "friday": "" },
+    { "time": "17:00", "monday": "1º IMUSI", "tuesday": "", "wednesday": "1º IMUSI", "thursday": "", "friday": "Impregnación Musical 1\n4 años (2022)\n17:00–18:00" },
+    { "time": "17:30", "monday": "", "tuesday": "Impregnación Musical 3\n6 años (2020)", "wednesday": "", "thursday": "Impregnación Musical 2\n5 años (2021)", "friday": "Conjunto\nInstrumental\n17:30–18:30" },
     { "time": "18:00", "monday": "2.1º IMUSI", "tuesday": "", "wednesday": "2.1º IMUSI", "thursday": "", "friday": "" },
     { "time": "18:30", "monday": "", "tuesday": "2º IMUSI A", "wednesday": "", "thursday": "2º IMUSI A", "friday": "" },
     { "time": "19:00", "monday": "3º IMUSI", "tuesday": "", "wednesday": "3º IMUSI", "thursday": "", "friday": "Banda Escuela" },
@@ -12,9 +12,5 @@
     { "time": "20:00", "monday": "L. Adultos 3º L\nCarlos\n(1h)", "tuesday": "", "wednesday": "L. Adultos 2ºX\n(1h)", "thursday": "", "friday": "" },
     { "time": "20:30", "monday": "", "tuesday": "", "wednesday": "", "thursday": "", "friday": "" },
     { "time": "21:00", "monday": "", "tuesday": "", "wednesday": "", "thursday": "", "friday": "" }
-  ],
-  "overlappingEvents": [
-    { "day": "friday", "start": "17:00", "duration": 2, "subject": "Impregnación Musical 1\n4 años (2022)" },
-    { "day": "friday", "start": "17:30", "duration": 2, "subject": "Conjunto\nInstrumental" }
   ]
 }
