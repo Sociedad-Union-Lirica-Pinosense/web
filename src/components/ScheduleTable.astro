@@ -86,7 +86,7 @@ const dayCards = days.map((day) => ({
                 <td
                   rowspan={value ? getRowSpan(value) : undefined}
                   data-schedule-group={value ? getScheduleGroup(value) : undefined}
-                  class:list={[{ empty: !value }]}
+                  class:list={[`day-${day.key}`, { empty: !value }]}
                 >
                   {value || '—'}
                 </td>
@@ -195,6 +195,10 @@ const dayCards = days.map((day) => ({
     white-space: nowrap;
     background-color: var(--color-paper);
     text-align: start;
+  }
+  tbody td.day-tuesday,
+  tbody td.day-thursday {
+    background-color: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
   }
   tbody td.is-highlighted {
     background-color: var(--color-primary-soft);
