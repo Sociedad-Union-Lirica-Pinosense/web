@@ -63,7 +63,7 @@ jobs:
           weasyprint /tmp/calendario.html public/pdfs/calendario-escolar.pdf
 
       - name: Commit generated PDFs
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'docs: regenerate PDFs from sources [skip ci]'
           file_pattern: 'public/docs/*.pdf public/pdfs/*.pdf'
